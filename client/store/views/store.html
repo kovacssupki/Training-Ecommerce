@@ -1,0 +1,64 @@
+<div id="main">
+  <header class="text-center phone-header">
+      <h1>Welcome to Mike's Shopping Store!</h1>
+      <p>Please select the products and add them to your shopping cart.</p><br>
+      <p>When you are done, click the shopping cart icon to review your order and check out.</p>
+      {{vm.msg}}
+  </header>
+
+  <!-- PANEL -->
+  <div class="panel panel-default shop-panel">
+           <div class="panel-body">
+             <div class="row">
+               <div class="col-sm-4">
+                 <form>
+                   <label for="search" class="shop-label">Search :</label>
+                   <input ng-model="vm.query" placeholder="Search products">
+                   <label for="search" class="shop-label">Sort By :</label>
+                   <select ng-model="vm.orderProp">
+                     <option value="name">Alphabetical</option>
+                     <option value="age">Newest</option>
+                   </select>
+                 </form>
+               </div>
+               <div class="col-sm-8">
+                 <div class="pull-right">
+                   <a href="#" ng-click="vm.goToCart()"><i class="fa fa-shopping-cart fa-3x shop-icon"></i><span>Shopping Cart( {{ vm.itemCount().count}} items - {{ vm.getTotal().total }} $)</span></a>
+                 </div>
+               </div>
+             </div>
+           </div>
+    </div>
+
+    <!-- SHOP -->
+    <div class="container">
+              <div class="row">
+              <div class="col-sm-3 col-sm-offset-1 " ng-repeat="product in vm.products | filter:vm.query | orderBy:vm.orderProp">
+                <div class="thumbnail store-grid">
+                  <img ng-src="{{product.imageUrl}}" alt="{{phone.name}}"/>
+                  <div class="caption">
+                    <h4>{{product.name}}</h4>{{ vm.msg}}
+                    <p class="price">{{product.price | currency}}</p>
+                    <form id="product-form">
+                      <span>Quantity</span> <br>
+
+                        <input type="number" class="quantity-input" min="0" max="{{product.instock}}" ng-model="product.quantity" ng-init="product.quantity=1"/></p>
+                        <p>Selected quantity: {{ product.quantity || 0 }} items</p>
+                        <p>Total price :  {{ product.price * product.quantity || 0 }} $ </p>
+
+                      <p><span><p>{{product.instock - product.quantity}} available in stock!</p></span></p>
+                    </form>
+
+                    <span><a href="#" class="btn btn-primary" role="button" ng-click="vm.addToCart(product);">Add to cart</a></span>
+                    <span><a href="#" class="btn btn-primary" role="button" ng-click="vm.details(product)">View details</a></span>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+    </div><!--/container-->
+
+
+
+</div><!--/end main div-->

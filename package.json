@@ -4,12 +4,14 @@
   "description": "eccomerce app",
   "main": "app.js",
   "scripts": {
+    "start": "node server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mike&Shawny",
   "license": "ISC",
   "dependencies": {
     "bower": "^1.7.9",
+    "crypto": "0.0.3",
     "express": "^4.14.0",
     "mongoose": "^4.6.5"
   }

@@ -4,11 +4,13 @@
       .module('app')
       .controller('NavController', NavController)
 
-      NavController.$inject = ['$scope','$uibModal'];
+      NavController.$inject = ['$scope','$uibModal','authToken'];
 
-      function NavController($scope, $uibModal){
+      function NavController($scope, $uibModal, authToken){
         var vm = this;
         vm.msg = 'yoyo';
+        vm.isAuthenticated = authToken.isAuthenticated;
+
 
         vm.register = function () {
          var modalInstance = $uibModal.open({
@@ -27,7 +29,11 @@
          });
         }//vm register
 
-        
+        vm.logout = function(){
+          authToken.removeToken();
+        }
+
+
 
       }//NavController
 

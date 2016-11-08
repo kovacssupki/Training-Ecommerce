@@ -1,0 +1,31 @@
+<div id="LoginModal">
+
+          <div class="modal-header">
+              <h3 class="modal-title" id="modal-title">Login</h3>
+          </div>
+          <div class="modal-body" id="modal-body">
+            <form class="form-horizontal" name="register">
+
+
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">Username</label>
+                <div class="col-sm-10">
+                  <input type="text" ng-model="vm.user.username" class="form-control" autofocus id="inputName3" placeholder="Username" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">Password</label>
+                <div class="col-sm-10">
+                  <input type="password" name="password" ng-model="vm.user.password" class="form-control" autofocus id="inputName3"
+                  placeholder="Password" required>
+
+                </div>
+              </div>
+
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-success" data-ng-click="vm.login()">Login</button>
+              <button class="btn btn-danger" type="button" data-ng-click="vm.cancel()">Cancel</button>
+          </div>
+
+  </div><!--/updateModal-->

@@ -1,13 +1,67 @@
+body{
+  font-family: Lato;
+}
 .store-grid{
   height:550px;
 }
+/* NAV*/
+.mynav{
+  background:#1abc9c;
+  border:none;
+  height:50px;
+}
 
+
+
+
+.navbar-inverse .navbar-nav>li>a{
+  color:#fff;
+}
+.logo{
+  height: 50px;
+  margin-top: -15px;
+  width: 50px;
+}
+/*header*/
+.shopping-header{
+  margin-top:50px;
+  padding:100px 0;
+  background-image:url('http://www.3dcart.com/2015/images/landing/marketing/xRemarketing-to-visitors.jpg.pagespeed.ic.DFB4zMI2_N.webp');
+  color:#fff;
+  letter-spacing:1px;
+}
+/*PANEL*/
+.shop-panel{
+  background:#1abc9c;
+
+  letter-spacing:1px;
+  border:none;
+}
+/* footer*/
+.footer{
+  background:#111;
+  color:#ccc;
+  padding:30px;
+}
 /* ALERTS*/
 
 .main-alert{
   max-width:400px;
   margin:0 auto;
+  background:lightblue;
 }
 .alert-hidden{
   visibility:hidden;
+}
+
+.help-block{
+  display: inline-block;
+    padding: 5px;
+    background: lightblue;
+}
+/* icons*/
+.fa-user,
+.fa-shopping-cart,
+.fa-user-plus{
+  margin-right:10px;
 }

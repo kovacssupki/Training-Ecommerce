@@ -4,7 +4,7 @@
               <h3 class="modal-title" id="modal-title">Register</h3>
           </div>
           <div class="modal-body" id="modal-body">
-            <form class="form-horizontal">
+            <form class="form-horizontal" name="register">
 
               <div class="form-group">
                 <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
@@ -30,14 +30,19 @@
               <div class="form-group">
                 <label for="inputEmail3" class="col-sm-2 control-label">Password</label>
                 <div class="col-sm-10">
-                  <input type="password" ng-model="vm.user.password" class="form-control" autofocus id="inputName3" placeholder="Password" required>
+                  <input type="password" name="password" ng-model="vm.user.password" class="form-control" autofocus id="inputName3"
+                  placeholder="Password" required>
+
                 </div>
               </div>
 
               <div class="form-group">
                 <label for="inputEmail3" class="col-sm-2 control-label">Confirm</label>
                 <div class="col-sm-10">
-                  <input type="password" ng-model="vm.user.repass" class="form-control" autofocus id="inputName3" placeholder="Confirm password" required>
+                  <input type="password" name="password_confirm" ng-model="vm.user.repass" class="form-control" autofocus id="inputName3"
+                  placeholder="Confirm password" validate-equals="vm.user.password" required>
+                  <div class="help-block" ng-show="register.password_confirm.$dirty && register.password_confirm.$invalid">Please match the passwords</div>
+                  <!--the ng-show in this help-block has to match the name of the input, not the ng-model  -->
                 </div>
               </div>
 
@@ -51,10 +56,11 @@
                 </div>
               </div>
             </form>
+            <!-- <pre>{{ register | json}}</pre> -->
           </div>
-          <div class="alert alert-{{ alert.type }} animated main-alert" data-ng-class="{'flipInY': alert.show, 'flipOutY':!alert-show,'alert-hidden': !alert.hasBeenShown}"><strong>{{alert.title}}</strong>{{alert.message}}</div>
+          <!-- <div class="alert alert-{{ alert.type }} animated main-alert" data-ng-class="{'flipInY': alert.show, 'flipOutY':!alert.show,'alert-hidden': !alert.hasBeenShown}"><strong>{{alert.title}}</strong>{{alert.message}}</div> -->
           <div class="modal-footer">
-              <button type="submit" class="btn btn-success" data-ng-click="vm.submit()">Submit registration</button>
+              <button type="submit" class="btn btn-success" data-ng-disabled="register.$invalid" data-ng-click="vm.submit()">Submit registration</button>
               <button class="btn btn-danger" type="button" data-ng-click="vm.cancel()">Cancel</button>
           </div>
 

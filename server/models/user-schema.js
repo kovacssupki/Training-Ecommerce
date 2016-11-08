@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 //Create a schema
 var UserSchema = new Schema({
   name: { type: String, required: true },
-  email: { type: String, required: true},
+  email: { type: String, required: true, unique: true},
   username: { type: String, required: true},
   isActive: { type : Boolean, default : false},
   activationCode : { type: String},

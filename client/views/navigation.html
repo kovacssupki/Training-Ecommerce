@@ -1,5 +1,5 @@
-<nav class="navbar navbar-inverse" ng-cloak>
-  <div class="container-fluid">
+<nav class="navbar navbar-inverse navbar-fixed-top mynav" ng-cloak>
+  <div class="container-fluid nav-parent">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -8,19 +8,20 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">OurStore</a>
+      <a class="navbar-brand" href="/"><img data-ng-src="{{ vm.imagePath}}" alt="Logo" class="logo"></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse nav-child" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
         <li><a href="#">Products</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <!-- <li class="active"><a href="#" data-ng-click="vm.login()">Login</a></li> -->
-        <li data-ng-hide="vm.isAuthenticated()"><a href="#" data-ng-click="vm.register()">Register</a></li>
+        <!-- <li>Signed in as: </li> -->
+        <li class="active"><a href="#" data-ng-click="vm.login()"><i class="fa fa-user" aria-hidden="true"></i>Login</a></li>
+        <li data-ng-hide="vm.isAuthenticated()"><a href="#" data-ng-click="vm.register()"><i class="fa fa-user-plus" aria-hidden="true"></i>Register</a></li>
         <li data-ng-show="vm.isAuthenticated()"><a href="#" data-ng-click="vm.logout()">Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->

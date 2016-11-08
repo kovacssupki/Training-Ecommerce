@@ -7,6 +7,9 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var Product = require('./models/product-schema');
 var jwt = require('./services/jwt.js');
+//sendgrid
+// var sg = require('sendgrid').SendGrid('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');
+ //sendgrid api key : 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
 
 // Connect to MongoDB and create/use database called ShoppingCart
 mongoose.connect('mongodb://localhost/ShoppingCart');
@@ -39,29 +42,62 @@ app.post('/user/register', function(req, res){
 
   var User = require('./models/user-schema');
   var newUser = new User();
+  var date = new Date();
+  var activationCode = date.getTime();
+
+
   var payload = {
     iss: req.hostname,
     sub: newUser._id,
   }
-  var token = jwt.encode(payload, "shhh..");
 
+  var token = jwt.encode(payload, "shhh..");
 
   console.log('Req.body is',req.body);
   console.log('NewUser is:', newUser);
+
+
   newUser.name = req.body.name;
   newUser.email = req.body.email;
   newUser.username = req.body.username;
   newUser.password = req.body.password;
   newUser.address = req.body.address;
+  newUser.activationCode = activationCode.toString();
 
-  newUser.save().then(function(err, doc){
-    console.log('save args are:',arguments);
-    res.send({
-      user: newUser,
-      token: token
-    });
+  newUser.save(onSuccessCallback,onErrorCallback);
+
+  function onSuccessCallback(err,doc){
+    if(doc){
+      // res.send({
+      //   user: newUser,
+      //   token: token
+      // });
+      res.json({submitted: true});
+    }
+  }//success
+
+  function onErrorCallback(error){
+    res.status(400);
+    res.send({error: error});
+  }//error
+
+  var helper = require('sendgrid').mail;
+  var sg = require('sendgrid')('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');
+
+
+  var mail = helper.Mail(new helper.Email("2016shoppingcart@gmail.com"),"Sending with SendGrid is Fun", new helper.Email(newUser.email),new helper.Content('text/plain',"and easy to do anywhere, even with Node.js"));
+  var request = sg.emptyRequest({
+    method: 'POST',
+    path: '/v3/mail/send',
+    body: mail.toJSON()
   });
+  sg.API(request, function(error, response) {
+  console.log(response.statusCode);
+  console.log(response.body);
+  console.log(response.headers);
 });
+
+});//post req end
 
 
 

@@ -1,9 +1,10 @@
 <div id="main">
-  <header class="text-center phone-header">
+
+  <header class="text-center shopping-header">
       <h1>Welcome to Mike's Shopping Store!</h1>
       <p>Please select the products and add them to your shopping cart.</p><br>
       <p>When you are done, click the shopping cart icon to review your order and check out.</p>
-      {{vm.msg}}
+      <div class="alert alert-{{ alert.type }} animated main-alert" data-ng-class="{'flipInY': alert.show, 'flipOutY':!alert.show,'alert-hidden': !alert.hasBeenShown}"><strong>{{alert.title}}</strong>{{alert.message}}</div>
   </header>
 
   <!-- PANEL -->
@@ -23,7 +24,7 @@
                </div>
                <div class="col-sm-8">
                  <div class="pull-right">
-                   <a href="#" ng-click="vm.goToCart()"><i class="fa fa-shopping-cart fa-3x shop-icon"></i><span>Shopping Cart( {{ vm.itemCount().count}} items - {{ vm.getTotal().total }} $)</span></a>
+                   <a href="#" ng-click="vm.goToCart()"><i class="fa fa-shopping-cart fa-2x shop-icon"></i><span>Shopping Cart( {{ vm.itemCount().count}} items - {{ vm.getTotal().total }} $)</span></a>
                  </div>
                </div>
              </div>
@@ -31,7 +32,7 @@
     </div>
 
     <!-- SHOP -->
-    <div class="container">
+        <div class="container">
               <div class="row">
               <div class="col-sm-3 col-sm-offset-1 " ng-repeat="product in vm.products | filter:vm.query | orderBy:vm.orderProp">
                 <div class="thumbnail store-grid">
@@ -60,5 +61,7 @@
     </div><!--/container-->
 
 
-
+<footer class="text-center footer">
+  <p><i class="fa fa-shopping-cart fa-2x shop-icon"></i>ShoppingCart</p>
+</footer>
 </div><!--/end main div-->

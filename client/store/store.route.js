@@ -30,7 +30,10 @@
                       }
 
                     });
-                  }]
+                  }],
+                  // user:['$stateParams', '$http', function($stateParams, $http){
+                  //   return $http.get('/user')
+                  // }]
 
                 }
 

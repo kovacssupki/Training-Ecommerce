@@ -16,7 +16,6 @@
 
           $http.post('/user/register', vm.user, {headers:{'Content-Type': 'application/json' }})
           .success(function(response){
-          // console.log("User registered:", vm.user);
           authToken.setToken(response.token);
           alert('Success ','Ok! ', 'Welcome ' + vm.user.email +'. Check your email for completing your registration!');
 

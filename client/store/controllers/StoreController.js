@@ -13,6 +13,8 @@
         vm.products = products;
         vm.orderProp = 'age';
         console.log(vm.products);
+      
+
     }//StoreController
 
 

@@ -1,30 +1,59 @@
+/**
+ * This class is one of the Bean classes of the application.
+ * It contains information about the product:
+ * 	name	- Name of the product.
+ * 	description	- Description of the product.
+ * 	instock	- Number of product in the stock.
+ * 	price	- The price of the product.
+ * 
+ * @author sandor.naghi
+ */
+
 package com.beans;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Product {
 
-	private long id;
+	private String id;
+	@JsonProperty("name")
 	private String name;
+	@JsonProperty("description")
 	private String description;
-	private int stock;
+	@JsonProperty("instock")
+	private int instock;
+	@JsonProperty("price")
 	private long price;
-	private int quantity;
 
+	/**
+	 * Default constructor of the Class.
+	 */
 	public Product() {
 	}
 
-	public Product(String name, String descirption, int stock, long price, int quantity) {
+	/**
+	 * Constructor with arguments of the class.
+	 * @param name	Name of product.
+	 * @param descirption	Description of product.
+	 * @param instock	Number of products in stock.
+	 * @param price	The price of the product.
+	 */
+	public Product(String name, String descirption, int instock, long price) {
 		this.name = name;
 		this.description = descirption;
-		this.stock = stock;
+		this.instock = instock;
 		this.price = price;
-		this.quantity = quantity;
 	}
 
-	public long getId() {
+	/**
+	 * Public getters and setters.
+	 */
+	
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -44,12 +73,12 @@ public class Product {
 		this.description = description;
 	}
 
-	public int getStock() {
-		return stock;
+	public int getInstock() {
+		return instock;
 	}
 
-	public void setStock(int stock) {
-		this.stock = stock;
+	public void setInstock(int instock) {
+		this.instock = instock;
 	}
 
 	public long getPrice() {
@@ -60,27 +89,24 @@ public class Product {
 		this.price = price;
 	}
 
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
+	/**
+	 * The overridden hashcode method.
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + instock;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + (int) (price ^ (price >>> 32));
-		result = prime * result + quantity;
-		result = prime * result + stock;
 		return result;
 	}
 
+	/**
+	 * The overridden equals method.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -95,7 +121,12 @@ public class Product {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (instock != other.instock)
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -104,11 +135,8 @@ public class Product {
 			return false;
 		if (price != other.price)
 			return false;
-		if (quantity != other.quantity)
-			return false;
-		if (stock != other.stock)
-			return false;
 		return true;
 	}
 
+	
 }

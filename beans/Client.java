@@ -1,3 +1,14 @@
+/**
+ * This class is one of the Bean classes of the application.
+ * It contains the field of the client:
+ * 		email, name, username, password, address	- information about the client, 
+ * 		the activation code		- for activating the client,
+ * 		isactive boolean field		- to let us know if the client is active
+ * 		isadmin boolean field		- to let us know if the client has administrator rights.
+ * 
+ * 	@author sandor.naghi
+ */
+
 package com.beans;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -23,9 +34,23 @@ public class Client {
 	@JsonIgnoreProperties(ignoreUnknown = true)
 	private Address address;
 
+	/**
+	 * Default constructor.
+	 */
 	public Client() {
 	}
 
+	/**
+	 * Constructor with arguments of the class.
+	 * @param email	Email address of the client.
+	 * @param username	Username of the client, used to log in.
+	 * @param password	Password of the client.
+	 * @param name	Name of the client.
+	 * @param isactive	Used to activate or disabled a client.
+	 * @param isadmin	Information about the rights of the client.
+	 * @param activationcode	Used to activate the client in the application.
+	 * @param address	Address of the client.
+	 */
 	public Client(String email, String username, String password, String name,
 			boolean isactive, boolean isadmin, String activationcode, Address address) {
 		this.email = email;
@@ -38,6 +63,10 @@ public class Client {
 		this.address = address;
 	}
 
+	/**
+	 * Public getters and setters.
+	 */
+	
 	public String getId() {
 		return id;
 	}
@@ -110,6 +139,9 @@ public class Client {
 		this.address = address;
 	}
 
+	/**
+	 * The overridden hashcode method.
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -126,6 +158,9 @@ public class Client {
 		return result;
 	}
 
+	/**
+	 * The overridden equals method.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

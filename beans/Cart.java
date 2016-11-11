@@ -1,18 +1,26 @@
 package com.beans;
 
-import java.util.Arrays;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Cart {
 
 	private long id;
+	
+	@JsonProperty("totalQuantity")
 	private int totalQuantity;
+	
+	@JsonProperty("totalCost")
 	private long totalCost;
-	private Product[] items;
+	
+	@JsonProperty("items")
+	private List<String> items;
 
 	public Cart() {
 	}
 
-	public Cart(int totalQuantity, long totalCost, Product[] items) {
+	public Cart(int totalQuantity, long totalCost, List<String> items) {
 		this.totalQuantity = totalQuantity;
 		this.totalCost = totalCost;
 		this.items = items;
@@ -42,11 +50,11 @@ public class Cart {
 		this.totalCost = totalCost;
 	}
 
-	public Product[] getItems() {
+	public List<String> getItems() {
 		return items;
 	}
 
-	public void setItems(Product[] items) {
+	public void setItems(List<String> items) {
 		this.items = items;
 	}
 
@@ -55,7 +63,7 @@ public class Cart {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + Arrays.hashCode(items);
+		result = prime * result + ((items == null) ? 0 : items.hashCode());
 		result = prime * result + (int) (totalCost ^ (totalCost >>> 32));
 		result = prime * result + totalQuantity;
 		return result;
@@ -72,7 +80,10 @@ public class Cart {
 		Cart other = (Cart) obj;
 		if (id != other.id)
 			return false;
-		if (!Arrays.equals(items, other.items))
+		if (items == null) {
+			if (other.items != null)
+				return false;
+		} else if (!items.equals(other.items))
 			return false;
 		if (totalCost != other.totalCost)
 			return false;
@@ -81,4 +92,5 @@ public class Cart {
 		return true;
 	}
 
+		
 }

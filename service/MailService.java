@@ -1,3 +1,9 @@
+/**
+ * This class is used to send an email to the Client, for registration, or password reseting.
+ * The email is send from the email: "2016shoppingcart@gmail.com".
+ * 
+ * @author sandor.naghi
+ */
 package com.service;
 
 import java.util.Properties;
@@ -12,6 +18,11 @@ import javax.mail.internet.MimeMessage;
 
 public class MailService {
 
+	/**
+	 * Sending an email.
+	 * @param to	The Clients email address.
+	 * @param subject	The subject of the email.
+	 */
 	public void sendMail(String to, String subject) {
 
 		final String username = "2016shoppingcart@gmail.com";

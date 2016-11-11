@@ -1,3 +1,10 @@
+/**
+ * This Class is used to generate and decode tokens, to identify the Clients.
+ * Checks if user is administrator, or simple Client.
+ * 
+ * @author sandor.naghi
+ */
+
 package com.encrypt;
 
 import java.security.Key;
@@ -19,7 +26,15 @@ public class CodeDecodeTokens {
 	
 	private ClientDao clientDao = new ClientDao();
 	
-	public String generateToken(String id, String subject, String issuer, long ttlMillis) {
+	/**
+	 * Generate a JavaWebToken, based upon the Clients id, username, and password.
+	 * @param id	Id of the Client.
+	 * @param subject	The username of the Client.
+	 * @param issuer	The password of the Client.
+	 * @return	The generated JavaWebtoken.
+	 */
+	//public String generateToken(String id, String subject, String issuer, long ttlMillis) {
+	public String generateToken(String id, String subject, String issuer) {
 		SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 		long nowMillis = System.currentTimeMillis();
 		Date now = new Date(nowMillis);
@@ -34,15 +49,20 @@ public class CodeDecodeTokens {
 							.signWith(signatureAlgorithm, signingkey);
 		
 		// add the expiration date
-		if (ttlMillis >0 ){
-			long expMillis = nowMillis + ttlMillis;
-			Date exp = new Date(expMillis);
-			builder.setExpiration(exp);
-		}
+//		if (ttlMillis >0 ){
+//			long expMillis = nowMillis + ttlMillis;
+//			Date exp = new Date(expMillis);
+//			builder.setExpiration(exp);
+//		}
 		
 		return builder.compact();
 	}
 	
+	/**
+	 * Decode the token.
+	 * @param token	The token from the front end. 
+	 * @return	A Claims object with the identification data of the Client.
+	 */
 	public Claims decodeToken(String token) {
 		Claims claims = null;
 		
@@ -54,25 +74,43 @@ public class CodeDecodeTokens {
 			
 		}
 		
-//		System.out.println("ID: " + claims.getId());
-//		System.out.println("Subject: " + claims.getSubject());
-//		System.out.println("Issuer: " + claims.getIssuer());
-//		System.out.println("Expiration: " + claims.getExpiration());
-		
 		return claims;
 	}
 	
-	public boolean inspectToken(String token) {
+	/**
+	 * Checking if the user has administrator rights.
+	 * @param token	JavaWebToken that verify the user.
+	 * @return	true if the user has administrator rights, false if has not.
+	 */
+	public boolean userIsAdmin(String token) {
 		Claims claims = decodeToken(token);
 		Client admin = null;
 		
 		if (claims != null) {
 			admin = clientDao.getClientWithId(claims.getId());
 			if (admin.isIsadmin() && admin.getUsername().equals(claims.getSubject()) && admin.getPassword().equals(claims.getIssuer())) {
-				return false;
+				return true;
 			}
 		}
 		
-		return true;
+		return false;
+	}
+	
+	/**
+	 * Checks if the Client has the rights for respective operations.
+	 * @param token	JavaWebToken that identify's the Client.
+	 * @return	true if the Client has rights for the operation, false if not.
+	 */
+	public boolean clientHasRights(String token) {
+		Claims claims = decodeToken(token);
+		Client client = null;
+		
+		if (claims != null) {
+			client = clientDao.getClientWithId(claims.getId());
+			if (client.getUsername().equals(claims.getSubject()) && client.getPassword().equals(claims.getIssuer()) && client.isIsactive()) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

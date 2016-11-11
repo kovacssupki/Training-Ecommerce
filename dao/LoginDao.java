@@ -1,3 +1,9 @@
+/**
+ *  This class is used to make Client login.
+ *  
+ *  @author sandor.naghi
+ */
+
 package com.dao;
 
 import java.net.InetAddress;
@@ -15,6 +21,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class LoginDao {
 
+	/**
+	 * Getting the user from the DB upon the username, and password.
+	 * @param username	Username of the Client.
+	 * @param pass		Password of the Client.
+	 * @return	The Client object if it exists, or null if not.
+	 */
 	public Client getClientWithUsername(String username, String pass) {
 		TransportClient transportClient = null;
 		Client client = null;
@@ -34,11 +46,17 @@ public class LoginDao {
 			
 			
 			SearchHit[] hit = response.getHits().getHits();
-			String s = hit[0].getSourceAsString();
-			
-			ObjectMapper mapper = new ObjectMapper();
-			client = mapper.readValue(s, Client.class);
-			client.setId(hit[0].getId());
+			if (hit.length != 0) {
+				String s = hit[0].getSourceAsString();
+				
+				ObjectMapper mapper = new ObjectMapper();
+				client = mapper.readValue(s, Client.class);
+				client.setId(hit[0].getId());
+				
+				if (!password.equals(client.getPassword())) {
+					return null;
+				}
+			}
 			
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
@@ -48,10 +66,6 @@ public class LoginDao {
 			if (transportClient != null) {
 				transportClient.close();
 			}
-		}
-		
-		if (!password.equals(client.getPassword())) {
-			return null;
 		}
 		
 		return client;

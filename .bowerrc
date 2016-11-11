@@ -1,0 +1,6 @@
+{
+    "analytics": false,
+    "color": true,
+    "directory": "client/vendors/",
+    "interactive": true
+}

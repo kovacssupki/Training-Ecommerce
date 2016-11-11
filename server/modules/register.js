@@ -58,7 +58,7 @@ var exports = module.exports = function email(req, res){
       console.log(response.headers);
       });
 
-      res.send({ message: 'ok'});
+      res.send({ message: 'ok', user: newUser});
     }else{
       res.send({ error : err});
     }

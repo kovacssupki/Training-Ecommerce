@@ -48,7 +48,7 @@ body{
 .main-alert{
   max-width:400px;
   margin:0 auto;
-  background:lightblue;
+  background:darkgreen;
 }
 .alert-hidden{
   visibility:hidden;
@@ -62,6 +62,24 @@ body{
 /* icons*/
 .fa-user,
 .fa-shopping-cart,
-.fa-user-plus{
+.fa-user-plus,
+.fa-power-off{
   margin-right:10px;
+}
+
+/*PRODUCT*/
+.price {
+    background-color: #39D1B4;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    font-weight: 200;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    width: 80px;
+    position: absolute;
+    top: -40px;
+    right: 20px;
 }

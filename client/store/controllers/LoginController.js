@@ -12,9 +12,9 @@
         vm.user = {};
 
 
-        vm.submit = function(){
+        vm.login = function(){
 
-          
+
 
         }//register fn
 

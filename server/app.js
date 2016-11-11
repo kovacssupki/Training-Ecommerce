@@ -32,6 +32,14 @@ app.get('/products', require('./modules/products.js'));
 //Register user
 app.post('/user/register', require('./modules/register.js'));
 
+//Create Cart
+// app.post('/user/:userid/cart/create', require('./modules/createCart.js'));
+
+//Get users
+app.get('/users', require('./modules/users.js'));
+//Get user
+app.get('/user/:userid', require('./modules/user.js'));
+
 
 app.get('*',function (req, res) {
     res.redirect('/');

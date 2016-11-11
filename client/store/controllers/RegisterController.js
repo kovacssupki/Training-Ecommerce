@@ -5,19 +5,23 @@
       .controller('RegisterController', RegisterController)
 
 
-      RegisterController.$inject = ['$scope','$uibModalInstance','$http', 'authToken','alert'];
+      RegisterController.$inject = ['$scope','$uibModalInstance','$http', 'authToken','alert','$state','$stateParams'];
 
-      function RegisterController($scope, $uibModalInstance, $http, authToken, alert){
+      function RegisterController($scope, $uibModalInstance, $http, authToken, alert, $state,$stateParams){
         var vm = this;
         vm.user = {};
 
 
-        vm.submit = function(){
+        vm.register = function(){
 
           $http.post('/user/register', vm.user, {headers:{'Content-Type': 'application/json' }})
           .success(function(response){
           authToken.setToken(response.token);
           alert('Success ','Ok! ', 'Welcome ' + vm.user.email +'. Check your email for completing your registration!');
+
+        
+          $state.go('store', { id : vm.user._id, email: vm.user.email });
+          console.log($stateParams);
 
           $uibModalInstance.close(response);
 

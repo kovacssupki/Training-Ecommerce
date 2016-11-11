@@ -5,6 +5,7 @@
       <p>Please select the products and add them to your shopping cart.</p><br>
       <p>When you are done, click the shopping cart icon to review your order and check out.</p>
       <div class="alert alert-{{ alert.type }} animated main-alert" data-ng-class="{'flipInY': alert.show, 'flipOutY':!alert.show,'alert-hidden': !alert.hasBeenShown}"><strong>{{alert.title}}</strong>{{alert.message}}</div>
+      <span>Signed in as: {{ vm.user.email }}</span>
   </header>
 
   <!-- PANEL -->
@@ -33,12 +34,12 @@
 
     <!-- SHOP -->
         <div class="container">
-              <div class="row">
+              <div class="row" style="margin-top:50px">
               <div class="col-sm-3 col-sm-offset-1 " ng-repeat="product in vm.products | filter:vm.query | orderBy:vm.orderProp">
                 <div class="thumbnail store-grid">
                   <img ng-src="{{product.imageUrl}}" alt="{{phone.name}}"/>
                   <div class="caption">
-                    <h4>{{product.name}}</h4>{{ vm.msg}}
+                    <h4>{{product.name}}</h4>
                     <p class="price">{{product.price | currency}}</p>
                     <form id="product-form">
                       <span>Quantity</span> <br>

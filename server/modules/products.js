@@ -6,7 +6,7 @@ var exports = module.exports = function products(req, res){
 
   Product.find(function (err, products) {
       if (err) return console.error(err);
-      res.json({status:'success', products:products});
+      res.send({status:'success', products:products});
   });
 
 }//fn

@@ -1,0 +1,37 @@
+<div class="container header_wrapper">
+  <div class="header">
+    <ul class="nav nav-pills pull-right">
+      <li ui-sref-active="active"><a ui-sref="main">Home</a></li>
+      <li ui-sref-active="active"><a ui-sref="jobs">Jobs</a></li>
+      <li data-ng-hide="vm.isAuthenticated()" ui-sref-active="active"><a ui-sref="login">Login</a></li>
+      <li data-ng-show="vm.isAuthenticated()"  ui-sref-active="active"><a ui-sref="logout">Logout</a></li>
+    </ul>
+    <a class="navbar-brand" href="/"><img data-ng-src="{{ vm.logoPath}}" alt="Logo" class="logo"></a>
+  </div>
+</div>
+
+<header class="text-center shopping-header">
+
+    <div class="container">
+      <form class="form-horizontal" method="post" action="#" name="confirm">
+
+        <h4>Confirm your registration by supplying the 'activationCode' you received in confirmation email.</h4><br>
+        <div class="form-group">
+
+          <div class="cols-sm-10">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" autofocus data-ng-model="vm.user.activationCode" name="code" id="code"  placeholder="Confirmation Code"required/>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group ">
+          <button type="button"  data-ng-disabled="confirm.$invalid"  data-ng-click="vm.confirm()" class="btn btn-primary btn-lg btn-block login-button">Confirm registration</button><br>
+        </div>
+        {{vm.result}}
+      </form>
+    </div>
+    <div data-ng-include="'client/store/views/alert.html'">
+
+</header>

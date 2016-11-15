@@ -1,3 +1,112 @@
+<<<<<<< HEAD
+
+<div class="container header_wrapper">
+  <div class="header">
+    <ul class="nav nav-pills pull-right">
+      <li ui-sref-active="active"><a ui-sref="main">Home</a></li>
+      <li ui-sref-active="active"><a ui-sref="jobs">Jobs</a></li>
+      <li data-ng-hide="vm.isAuthenticated()" ui-sref-active="active"><a ui-sref="register">Register</a></li>
+      <li data-ng-show="vm.isAuthenticated()"  ui-sref-active="active"><a ui-sref="logout">Logout</a></li>
+    </ul>
+    <a class="navbar-brand" href="/"><img data-ng-src="{{ vm.logoPath}}" alt="Logo" class="logo"></a>
+  </div>
+</div>
+
+<div class="container">
+			<div class="row main">
+				<div class="panel-heading">
+	               <div class="panel-title text-center">
+	               		<h1 class="title">Mike's Shopping Center</h1>
+										<h3><strong>Welcome!</strong>Please register below</h3>
+										<!-- <div class="alert alert-{{ alert.type }} animated main-alert" data-ng-class="{'flipInY': alert.show, 'flipOutY':!alert.show,'alert-hidden': !alert.hasBeenShown 	}"><strong>{{alert.title}}</strong>{{alert.message}}</div> -->
+										<div data-ng-include="'client/store/views/alert.html'">
+	               		<hr />
+	               	</div>
+	            </div>
+				<div class="main-login main-center main_register">
+
+					<form class="form-horizontal" method="post" action="#" name="register">
+
+						<div class="form-group">
+							<label for="name" class="cols-sm-2 control-label">Your Name</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" data-ng-model="vm.user.name" name="name" id="name"  placeholder="Enter your Name" required/>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="email" class="cols-sm-2 control-label">Your Email</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+									<input type="email" class="form-control" data-ng-model="vm.user.email" name="email" id="email"  placeholder="Enter your Email" required/>
+								</div>
+								<div class="help-block" data-ng-show="register.email.$dirty && register.email.$invalid">Please enter a proper email</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="username" class="cols-sm-2 control-label">Username</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" data-ng-model="vm.user.username" name="username" id="username"  placeholder="Enter your Username"required/>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="password" class="cols-sm-2 control-label">Password</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+									<input type="password" class="form-control"  data-ng-model="vm.user.password" name="password" id="password"  placeholder="Enter your Password"required/>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+									<input type="password" validate-equals="vm.user.password" class="form-control" data-ng-model="vm.user.repass" name="password_confirm" id="confirm"  placeholder="Confirm your Password"required/>
+
+                  <!--the ng-show in this help-block has to match the name of the input, not the ng-model  -->
+								</div>
+								<div class="help-block" ng-show="register.password_confirm.$dirty && register.password_confirm.$invalid">Please match the passwords</div>
+							</div>
+						</div>
+
+            <div class="form-group">
+              <label for="confirm" class="cols-sm-2 control-label">Address</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-home fa-lg" aria-hidden="true"></i></span>
+                  <input type="text" class="form-control" ng-model="vm.user.address.street" name="street" id="confirm"  placeholder="Enter your street"/>
+                  <input type="text" class="form-control" ng-model="vm.user.address.city" name="city" id="confirm"  placeholder="Enter your city"/>
+                  <input type="text" class="form-control" ng-model="vm.user.address.county" name="county" id="confirm"  placeholder="Enter your county"/>
+                  <input type="text" class="form-control" ng-model="vm.user.address.zipcode" name="zipcode" id="confirm"  placeholder="Enter your zipcode"/>
+
+                </div>
+              </div>
+            </div>
+
+
+
+						<div class="form-group ">
+							<button type="button"data-ng-if="!isAuthenticated" data-ng-disabled="register.$invalid"  data-ng-click="vm.register()" class="btn btn-primary btn-lg btn-block login-button">Register</button><br>
+							<a class="text-muted pull-right" ui-sref="login">Login</a>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+=======
 <div id="RegisterModal">
 
           <div class="modal-header">
@@ -59,3 +168,4 @@
           </div>
 
   </div><!--/updateModal-->
+>>>>>>> 70425247f628429d21f7758a942827f465d3ccf3

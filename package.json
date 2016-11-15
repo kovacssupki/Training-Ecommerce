@@ -4,13 +4,26 @@
   "description": "eccomerce app",
   "main": "app.js",
   "scripts": {
+<<<<<<< HEAD
+    "start": "node server/app.js",
+=======
+>>>>>>> 70425247f628429d21f7758a942827f465d3ccf3
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mike&Shawny",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
+    "bcrypt-nodejs": "0.0.3",
+    "bower": "^1.7.9",
+    "crypto": "0.0.3",
+    "express": "^4.14.0",
+    "mongoose": "^4.6.5",
+    "sendgrid": "^4.7.1"
+=======
     "bower": "^1.7.9",
     "express": "^4.14.0",
     "mongoose": "^4.6.5"
+>>>>>>> 70425247f628429d21f7758a942827f465d3ccf3
   }
 }

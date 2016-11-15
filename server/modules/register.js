@@ -1,30 +1,26 @@
 'use strict'
 var jwt = require('./../services/jwt.js');
-var exports = module.exports = function email(req, res){
+var exports = module.exports = function register(req, res){
 
   var User = require('./../models/user-schema');
+
   var date = new Date();
   var activationCode = date.getTime();
+  var user = req.body;
+
   var newUser = new User({
-    name : req.body.name,
-    email : req.body.email,
-    username : req.body.username,
-    password : req.body.password,
-    address : req.body.address,
+
+    name : user.name,
+    email : user.email,
+    username : user.username,
+    password : user.password,
+    address : user.address,
     activationCode : activationCode.toString()
   });
 
 
+//create a payload with our user,and send it instead of the normal json newUser
 
-  var payload = {
-    iss: req.hostname,
-    sub: newUser._id,
-  }
-
-  var token = jwt.encode(payload, "shhh..");
-
-  // console.log('Req.body is',req.body);
-  // console.log('NewUser is:', newUser);
 
   newUser.save(onSuccessCallback, onErrorCallback);
   function onSuccessCallback(err,doc){
@@ -48,7 +44,7 @@ var exports = module.exports = function email(req, res){
 
       sg.API(request, function(error, response) {
         if(response.statusCode === 202){
-          console.log('Success');
+          console.log('Success, mail sent!');
         }else{
           console.log('Invalid email address');
         }
@@ -58,7 +54,12 @@ var exports = module.exports = function email(req, res){
       console.log(response.headers);
       });
 
-      res.send({ message: 'ok', user: newUser});
+      // res.send({ message: 'ok', user: newUser});
+      // res.status(202).send({
+      //   user: newUser,
+      //   token: token
+      // });
+      createSendToken(newUser, res);
     }else{
       res.send({ error : err});
     }
@@ -69,5 +70,17 @@ var exports = module.exports = function email(req, res){
     res.send({error: error});
   }//error
 
+  function createSendToken(user, res){
+
+    var payload = {
+      sub: user.id
+    }
+    var token = jwt.encode(payload, "shhh..");
+
+    res.status(202).send({
+      user: user,
+      token: token
+    });
+  }//fn createSendToken
 
 }//fn

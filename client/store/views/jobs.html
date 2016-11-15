@@ -1,0 +1,25 @@
+<div class="container header_wrapper">
+  <div class="header">
+    <ul class="nav nav-pills pull-right">
+      <li ui-sref-active="active"><a ui-sref="main">Home</a></li>
+      <li ui-sref-active="active"><a ui-sref="jobs">Jobs</a></li>
+      <li data-ng-hide="vm.isAuthenticated()" ui-sref-active="active"><a ui-sref="login">Login</a></li>
+      <li data-ng-show="vm.isAuthenticated()"  ui-sref-active="active"><a ui-sref="logout">Logout</a></li>
+    </ul>
+    <a class="navbar-brand" href="/"><img data-ng-src="{{ vm.logoPath}}" alt="Logo" class="logo"></a>
+  </div>
+</div>
+
+
+<div class="container">
+  <h1>Jobs</h1>
+
+  <div>
+    <ul>
+      <li ng-repeat="job in vm.jobs">{{job}}</li>
+    </ul>
+    <p>Signed in as: {{ vm.loggedUser}}</p>
+  </div>
+<!-- <div class="alert alert-{{ alert.type }} animated main-alert" data-ng-class="{'flipInY': alert.show, 'flipOutY':!alert.show,'alert-hidden': !alert.hasBeenShown}"><strong>{{alert.title}}</strong>{{alert.message}}</div> -->
+<div data-ng-include="'client/store/views/alert.html'">
+</div>

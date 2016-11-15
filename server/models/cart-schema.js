@@ -5,10 +5,14 @@ var Schema = mongoose.Schema;
 
 //Create a schema
 var CartSchema = new Schema({
-  userid: { type: Schema.Types.ObjectId, required: true, ref:'User' },
-  items: [{ type: Schema.Types.ObjectId, ref: 'Product'}]
+  // userid: { type: Schema.Types.ObjectId, required: true, ref:'User' },
+  // items: [{ type: Schema.Types.ObjectId, ref: 'Product'}]
+  items: [],
+  userid: Schema.Types.ObjectId
+
 });
 
 
 return mongoose.model('Cart', CartSchema);
+
 })();

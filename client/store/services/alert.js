@@ -6,7 +6,7 @@
       var alertTimeout;
 
       return function(type, title, message, timeout){
-        $rootScope.alert ={
+        $rootScope.alert = {
           hasBeenShown: true,
           show: true,
           type: type,

@@ -1,23 +1,56 @@
+<<<<<<< HEAD
+
+<div class="container header_wrapper">
+  <div class="header">
+    <ul class="nav nav-pills pull-right">
+      <li ui-sref-active="active"><a ui-sref="main">Home</a></li>
+      <li ui-sref-active="active"><a ui-sref="jobs">Jobs</a></li>
+      <li data-ng-hide="vm.isAuthenticated()" ui-sref-active="active"><a ui-sref="login">Login</a></li>
+      <li data-ng-show="vm.isAuthenticated()"  ui-sref-active="active"><a ui-sref="logout">Logout</a></li>
+      <!-- <li data-ng-show="vm.loggedUser">Logged in as: {{ vm.loggedUser}}</li> -->
+    </ul>
+    <a class="navbar-brand" href="/"><img data-ng-src="{{ vm.logoPath}}" alt="Logo" class="logo"></a>
+  </div>
+</div>
+
 <div id="main">
 
   <header class="text-center shopping-header">
       <h1>Welcome to Mike's Shopping Store!</h1>
       <p>Please select the products and add them to your shopping cart.</p><br>
       <p>When you are done, click the shopping cart icon to review your order and check out.</p>
-      <div class="alert alert-{{ alert.type }} animated main-alert" data-ng-class="{'flipInY': alert.show, 'flipOutY':!alert.show,'alert-hidden': !alert.hasBeenShown}"><strong>{{alert.title}}</strong>{{alert.message}}</div>
-      <span>Signed in as: {{ vm.user.email }}</span>
+      <p>Logged in as : {{ vm.loggedUser || 'Visitor'}}</p>
+      <div data-ng-include="'client/store/views/alert.html'">
+=======
+<div id="main">
+  <header class="text-center phone-header">
+      <h1>Welcome to Mike's Shopping Store!</h1>
+      <p>Please select the products and add them to your shopping cart.</p><br>
+      <p>When you are done, click the shopping cart icon to review your order and check out.</p>
+      {{vm.msg}}
+>>>>>>> 70425247f628429d21f7758a942827f465d3ccf3
   </header>
 
   <!-- PANEL -->
   <div class="panel panel-default shop-panel">
+<<<<<<< HEAD
+    <div class="container">
+=======
+>>>>>>> 70425247f628429d21f7758a942827f465d3ccf3
            <div class="panel-body">
              <div class="row">
                <div class="col-sm-4">
                  <form>
                    <label for="search" class="shop-label">Search :</label>
+<<<<<<< HEAD
+                   <input ng-model="vm.query" placeholder="Search products"><br>
+                   <label for="search" class="shop-label">Sort By :</label>
+                   <select ng-model="vm.orderProp" class="shop_panel_option">
+=======
                    <input ng-model="vm.query" placeholder="Search products">
                    <label for="search" class="shop-label">Sort By :</label>
                    <select ng-model="vm.orderProp">
+>>>>>>> 70425247f628429d21f7758a942827f465d3ccf3
                      <option value="name">Alphabetical</option>
                      <option value="age">Newest</option>
                    </select>
@@ -25,11 +58,17 @@
                </div>
                <div class="col-sm-8">
                  <div class="pull-right">
-                   <a href="#" ng-click="vm.goToCart()"><i class="fa fa-shopping-cart fa-2x shop-icon"></i><span>Shopping Cart( {{ vm.itemCount().count}} items - {{ vm.getTotal().total }} $)</span></a>
+<<<<<<< HEAD
+                   <a data-ng-click="vm.goToCart()"><i class="fa fa-shopping-cart fa-2x shop-icon"></i><span>Shopping Cart( {{ vm.itemCount().count}} items - {{ vm.getTotal().total }} $)</span></a>
+=======
+                   <a href="#" ng-click="vm.goToCart()"><i class="fa fa-shopping-cart fa-3x shop-icon"></i><span>Shopping Cart( {{ vm.itemCount().count}} items - {{ vm.getTotal().total }} $)</span></a>
+>>>>>>> 70425247f628429d21f7758a942827f465d3ccf3
                  </div>
                </div>
              </div>
            </div>
+<<<<<<< HEAD
+         </div><!--container-->
     </div>
 
     <!-- SHOP -->
@@ -37,9 +76,21 @@
               <div class="row" style="margin-top:50px">
               <div class="col-sm-3 col-sm-offset-1 " ng-repeat="product in vm.products | filter:vm.query | orderBy:vm.orderProp">
                 <div class="thumbnail store-grid">
-                  <img ng-src="{{product.imageUrl}}" alt="{{phone.name}}"/>
+                  <img ng-src="{{product.imageUrl}}" alt="{{phone.name}}" class="product_img"/>
                   <div class="caption">
                     <h4>{{product.name}}</h4>
+=======
+    </div>
+
+    <!-- SHOP -->
+    <div class="container">
+              <div class="row">
+              <div class="col-sm-3 col-sm-offset-1 " ng-repeat="product in vm.products | filter:vm.query | orderBy:vm.orderProp">
+                <div class="thumbnail store-grid">
+                  <img ng-src="{{product.imageUrl}}" alt="{{phone.name}}"/>
+                  <div class="caption">
+                    <h4>{{product.name}}</h4>{{ vm.msg}}
+>>>>>>> 70425247f628429d21f7758a942827f465d3ccf3
                     <p class="price">{{product.price | currency}}</p>
                     <form id="product-form">
                       <span>Quantity</span> <br>
@@ -62,7 +113,11 @@
     </div><!--/container-->
 
 
+<<<<<<< HEAD
 <footer class="text-center footer">
   <p><i class="fa fa-shopping-cart fa-2x shop-icon"></i>ShoppingCart</p>
 </footer>
+=======
+
+>>>>>>> 70425247f628429d21f7758a942827f465d3ccf3
 </div><!--/end main div-->

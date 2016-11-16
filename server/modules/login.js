@@ -7,7 +7,7 @@ var exports = module.exports = function login(req, res){
   req.user = req.body;
 
   function createSendToken(user, res){
-    
+
     var payload = {
       sub: user.id,
       name: user.username

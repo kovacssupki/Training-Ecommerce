@@ -5,16 +5,16 @@
       .controller('CartController', CartController)
 
 
-      CartController.$inject = ['$scope','$http','alert','API_URL','authToken','$state','$stateParams','cart'];
+      CartController.$inject = ['$scope','$http','alert','API_URL','authToken','$state','$stateParams'];
 
-      function CartController($scope, $http, alert, API_URL, authToken, $state, $stateParams, cart){
+      function CartController($scope, $http, alert, API_URL, authToken, $state, $stateParams){
         var vm = this;
         vm.logoPath = '/client/assets/img/logo.png';
         vm.isAuthenticated = authToken.isAuthenticated;
         vm.userid = $stateParams.userid;
-
-        vm.cart = cart;
-        console.log('vm.cart in CartCtrl', vm.cart)
+        
+        // vm.cart = cart;
+        // console.log('vm.cart in CartCtrl', vm.cart)
 
         //get jobs + name
         $http.get(API_URL + 'jobs').success(function(jobs){

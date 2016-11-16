@@ -12,7 +12,7 @@
         var vm = this;
         vm.logoPath = '/client/assets/img/logo.png';
         vm.isAuthenticated = authToken.isAuthenticated;
-        
+
         vm.url = API_URL + 'user/login';
         vm.user = {};
 
@@ -30,7 +30,7 @@
             $state.go('main');
           })
           .error(function(err){
-            alert('warning','Oopss!', 'Could not login :( ')
+            alert('warning','Oopss!', 'Could not login :( ',err.message)
           })
 
         }//register fn

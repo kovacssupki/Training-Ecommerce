@@ -29,9 +29,10 @@
                        }else{
                          console.log('Error resolving the products from route');
                        }
-                     });
+                     })
                    }]
-             }
+
+             }//resolve
 
             })
             .state('register',{
@@ -74,18 +75,23 @@
               }
             })
             .state('cart', {
-              url:'/cart/:username',
+              url:'/cart/:userid',
               templateUrl:'client/store/views/cart.html',
               controller:'CartController',
               controllerAs:'vm',
-
               resolve:{
                 // cart:['$stateParams','$http', function($stateParams, $http){
-                //   return $http.get('/cart/' + $stateParams.username).then(function(response){
+                //   return $http.post('/cart/'+ $stateParams.userid + '/create',{ userid: $stateParams.userid}).then(function(response){
                 //     console.log(response.data);
-                //       return response.data;
+                //     return response.data;
                 //   })
                 // }]
+                cart:['$stateParams','$http', function($stateParams, $http){
+                  return $http.get('/cart/'+ $stateParams.userid ).then(function(response){
+                    console.log(response.data);
+                    return response.data;
+                  })
+                }]
               }
             })
 
@@ -96,6 +102,6 @@
 
 
 
-      
+
 
 })();

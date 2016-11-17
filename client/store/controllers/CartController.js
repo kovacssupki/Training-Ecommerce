@@ -5,16 +5,19 @@
       .controller('CartController', CartController)
 
 
-      CartController.$inject = ['$scope','$http','alert','API_URL','authToken','$state','$stateParams'];
+      CartController.$inject = ['$scope','$http','alert','API_URL','authToken','$state','$stateParams','cart'];
 
-      function CartController($scope, $http, alert, API_URL, authToken, $state, $stateParams){
+      function CartController($scope, $http, alert, API_URL, authToken, $state, $stateParams, cart){
         var vm = this;
         vm.logoPath = '/client/assets/img/logo.png';
         vm.isAuthenticated = authToken.isAuthenticated;
         vm.userid = $stateParams.userid;
-        
-        // vm.cart = cart;
-        // console.log('vm.cart in CartCtrl', vm.cart)
+        console.log('stateParams userid in Cart', $stateParams.userid);
+
+        vm.cart = cart;
+        console.log('vm.cart in CartCtrl', vm.cart)
+        vm.cart.items = vm.cart.user.cart;
+        console.log('vm.cart.items', vm.cart.items);
 
         //get jobs + name
         $http.get(API_URL + 'jobs').success(function(jobs){
@@ -26,7 +29,6 @@
           console.log('vm.jobs',vm.jobs);
           console.log('vm.jobs.payload.name',vm.jobs.payload.name);
           console.log('vm.jobs.payload.sub',vm.jobs.payload.sub);
-          console.log(vm.userId);
 
         }).error(function(err){
             alert('warning','Unable to get jobs', err.message);

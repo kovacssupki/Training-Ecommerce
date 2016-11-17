@@ -76,20 +76,16 @@ app.post('/user/login', require('./modules/login.js'));
 //Confirm
 app.post('/user/activate', require('./modules/confirm.js'))
 
-// Cart create
+//Cart Get
+app.get('/cart/:userid', require('./modules/getcart.js'))
+
+// Cart create/Get
 app.post('/cart/:userid/create', require('./modules/cart.js'));
 
 
-// Cart Get
-// app.get('/cart/:username', function(req, res){
-//   var Cart = require('./models/cart-schema');
-//
-//   // Cart.findOne({ userid : req.body.userid }, function(err, cart){
-//   //   if(err) return err;
-//   //   console.log(cart);
-//   // })
-//
-// })
+// Cart add Item
+app.post('/cart/:userid/additem/:itemid', require('./modules/addItemToCart.js'))
+
 
 
 

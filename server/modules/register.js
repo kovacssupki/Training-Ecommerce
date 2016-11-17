@@ -14,13 +14,13 @@ var exports = module.exports = function register(req, res){
     email : user.email,
     username : user.username,
     password : user.password,
+    repass : user.repass,
     address : user.address,
     activationCode : activationCode.toString()
   });
 
 
 //create a payload with our user,and send it instead of the normal json newUser
-
 
   newUser.save(onSuccessCallback, onErrorCallback);
   function onSuccessCallback(err,doc){
@@ -54,11 +54,7 @@ var exports = module.exports = function register(req, res){
       console.log(response.headers);
       });
 
-      // res.send({ message: 'ok', user: newUser});
-      // res.status(202).send({
-      //   user: newUser,
-      //   token: token
-      // });
+
       createSendToken(newUser, res);
     }else{
       res.send({ error : err});
@@ -66,7 +62,6 @@ var exports = module.exports = function register(req, res){
   }//success
 
   function onErrorCallback(error){
-    res.status(400);
     res.send({error: error});
   }//error
 
@@ -77,7 +72,7 @@ var exports = module.exports = function register(req, res){
     }
     var token = jwt.encode(payload, "shhh..");
 
-    res.status(202).send({
+    res.send({
       user: user,
       token: token
     });

@@ -38,7 +38,7 @@
                      <div class="cart-item-details">
                        <h5>{{item.name}}</h5>
                        <p class="item-detail-label">Price : <span class="item-detail-content">{{ item.price }} $ </span></p>
-                       <p class="item-detail-label ">Quantity : <input type="number" min="0" max="{{item.instock}}" ng-model="item.quantity"value="{{item.quantity}}"/></p>
+                       <p class="item-detail-label ">Quantity : <input type="number" min="0" max="{{item.instock}}" ng-init="1" ng-model="item.quantity"value="{{item.quantity}}"/></p>
                        <p class="item-detail-label">Stock : {{ item.instock - item.quantity }}</p>
                        <p class="item-detail-label">Total Price : {{ item.quantity * item.price}} $</p>
                        <button class="btn btn-danger" ng-click="vm.removeItem(item)">Remove from cart</button>

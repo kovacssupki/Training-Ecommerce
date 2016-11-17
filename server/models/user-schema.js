@@ -11,14 +11,15 @@ var UserSchema = new Schema({
   email: { type: String, required: true, unique: true},
   username: { type: String, required: true},
   isActive: { type : Boolean, default : false},
-  activationCode : { type: String},
+  activationCode : { type: String },
   password: { type: String, required: true },
-  repass: { type:String, required: true },
+  repass: { type: String, required: true },
   Address: { street: String,
              city: String,
              county: String,
              zip: Number
-          }
+          },
+  cart : [{ type: Schema.Types.ObjectId, ref: "Product" }]
 });
 
 

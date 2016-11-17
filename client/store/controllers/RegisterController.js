@@ -8,7 +8,7 @@
 
       RegisterController.$inject = ['$scope','$http', 'authToken','alert','$state','$stateParams'];
 
-      function RegisterController($scope, $http, authToken, alert, $state,$stateParams){
+      function RegisterController($scope, $http, authToken, alert, $state, $stateParams){
         var vm = this;
         vm.user = {};
         vm.isAuthenticated = authToken.isAuthenticated;

@@ -18,9 +18,9 @@
         vm.name = $stateParams.username;
         vm.token = authToken.getToken();
 
-        vm.cart;
+        // vm.cart = cart;
         console.log('vm.token in storeCtrl is: ', vm.token);
-
+        
 
 
         //get jobs + name
@@ -30,23 +30,9 @@
             vm.loggedUser = vm.jobs.payload.name;
           }
           vm.userid = vm.jobs.payload.sub;
-          console.log('vm.userid', vm.userid)
-
-          if(!vm.cart){
-            // create the cart once user is logged in
-            $http.post('/cart/'+ vm.userid + '/create',{ userid: vm.userid}).success(function(response){
-              console.log('Cart that just got created',response);
-              vm.cart = response;
-              console.log('vm.cart in Store',vm.cart);
-            })
-          }else{
-            $http.get('/cart/'+ vm.loggedUser).success(function(response){
-              console.log('Current cart:', response);
-            })
-          }
-
-          console.log('vm.jobs',vm.jobs)
-          console.log('vm.jobs.payload.name',vm.jobs.payload.name)
+          console.log('vm.userid', vm.userid);
+          // console.log('vm.jobs',vm.jobs);
+          console.log('vm.jobs.payload.name',vm.jobs.payload.name);
         }).error(function(err){
             alert('warning','Unable to get jobs! ', err.message);
         })
@@ -70,8 +56,19 @@
          });
        }
 
+       vm.addToCart = function(product){
+         var product = product;
+         console.log('clicked product:', product);
+
+         $http.post('/cart/'+ vm.userid + '/additem/'+ product._id, { productid: product._id, userid: vm.userid}).success(function(response){
+           console.log('Item that got added to cart is: ',response);
+         })
+         alert('success','Added '+ product.name + ' to cart')
+       }
+
+
         vm.goToCart = function(){
-          $state.go('cart', { username: vm.jobs.payload.name} );
+          $state.go('cart', { userid: vm.userid} );
         }
 
 

@@ -28,7 +28,8 @@ var exports = module.exports = function register(req, res){
 
       //sendgrid email
       var helper = require('sendgrid').mail;
-      var sg = require('sendgrid')('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');
+      // var sg = require('sendgrid')('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');
+      var sg = require('sendgrid')('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');
       var from_email = new helper.Email('2016shoppingcart@gmail.com');
       var to_email = new helper.Email(newUser.email);
       var subject = 'Welcome to Mike\'s shopping cart! Confirm your email';

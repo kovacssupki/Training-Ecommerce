@@ -12,7 +12,7 @@ var exports = module.exports = function add(req, res){
   var payload = jwt.decode(token, "shhh..");
   var userid = payload.sub;
 
-User.findOne({ _id: userid }).populate("cart", "name imageUrl" ).exec(function(err, user){
+User.findOne({ _id: userid }).populate("cart", "name imageUrl price instock" ).exec(function(err, user){
 
   if(err) throw err;
   if(!user){

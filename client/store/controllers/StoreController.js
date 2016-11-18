@@ -20,7 +20,7 @@
 
         // vm.cart = cart;
         console.log('vm.token in storeCtrl is: ', vm.token);
-        
+
 
 
         //get jobs + name
@@ -64,6 +64,7 @@
            console.log('Item that got added to cart is: ',response);
          })
          alert('success','Added '+ product.name + ' to cart')
+
        }
 
 

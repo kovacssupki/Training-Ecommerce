@@ -74,7 +74,7 @@ app.get('/users', require('./modules/users.js'));
 app.post('/user/login', require('./modules/login.js'));
 
 //Confirm
-app.post('/user/activate', require('./modules/confirm.js'))
+// app.post('/user/activate', require('./modules/confirm.js'))
 
 //Cart Get
 app.get('/cart/:userid', require('./modules/getcart.js'))
@@ -82,12 +82,14 @@ app.get('/cart/:userid', require('./modules/getcart.js'))
 // Cart create/Get
 app.post('/cart/:userid/create', require('./modules/cart.js'));
 
-
 // Cart add Item
 app.post('/cart/:userid/additem/:itemid', require('./modules/addItemToCart.js'))
 
+//Cart delete Item
+app.delete('/cart/:userid/removeitem/:itemid', require('./modules/removeItemCart.js'))
 
-
+//Activate - final step
+app.put('/activate/:activationCode', require('./modules/confirm.js'));
 
 
 app.get('*',function (req, res) {

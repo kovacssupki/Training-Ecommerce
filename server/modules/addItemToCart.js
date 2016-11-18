@@ -21,6 +21,7 @@ User.findOne({ _id: userid }, function(err, user){
   }
   user.cart.push(itemid);
 
+
   console.log(user);
   user.save(function(err,user){
     if(err) throw err;

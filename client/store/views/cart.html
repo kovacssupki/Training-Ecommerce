@@ -5,7 +5,7 @@
       <li ui-sref-active="active"><a ui-sref="jobs">Jobs</a></li>
       <li data-ng-hide="vm.isAuthenticated()" ui-sref-active="active"><a ui-sref="login">Login</a></li>
       <li data-ng-show="vm.isAuthenticated()"  ui-sref-active="active"><a ui-sref="logout">Logout</a></li>
-      <!-- <li data-ng-show="vm.loggedUser">Logged in as: {{ vm.loggedUser}}</li> -->
+      <div data-ng-include="'client/store/views/alert.html'"></div>
     </ul>
     <a class="navbar-brand" href="/"><img data-ng-src="{{ vm.logoPath}}" alt="Logo" class="logo"></a>
   </div>
@@ -36,9 +36,9 @@
                    </div>
                    <div class="col-sm-8">
                      <div class="cart-item-details">
-                       <h5>{{item.name}}</h5>
-                       <p class="item-detail-label">Price : <span class="item-detail-content">{{ item.price }} $ </span></p>
-                       <p class="item-detail-label ">Quantity : <input type="number" min="0" max="{{item.instock}}" ng-init="1" ng-model="item.quantity"value="{{item.quantity}}"/></p>
+                       <h5>{{item.name}}</h5><br>
+                       <p class="price">{{ item.price }} $</p>
+                       <p class="item-detail-label ">Quantity : <input type="number" min="0" max="{{item.instock}}" ng-init="item.quantity=1" ng-model="item.quantity"value="{{item.quantity}}"/></p>
                        <p class="item-detail-label">Stock : {{ item.instock - item.quantity }}</p>
                        <p class="item-detail-label">Total Price : {{ item.quantity * item.price}} $</p>
                        <button class="btn btn-danger" ng-click="vm.removeItem(item)">Remove from cart</button>
@@ -52,4 +52,4 @@
                  <h2><strong>Total cost : {{ vm.cartTotal().total }} $</strong> </h2><br>
                  <button class="btn btn-default cart-btn" data-ng-click="vm.backToStore()">Back to store </button><br>
                  <button class="btn btn-danger cart-btn" >Clear cart </button><br>
-                 <button class="btn btn-primary cart-btn" >Checkout & customer information</button>
+                 <button class="btn btn-primary cart-btn" >Checkout</button>

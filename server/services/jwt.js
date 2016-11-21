@@ -2,7 +2,7 @@ var crypto = require('crypto');
 
 exports.encode = function(payload, secret){
   //alg we use to encode/decode our jot
-  algorithm = 'HS256';
+ algorithm = 'HS256';
 
   var header = {
     typ: 'JWT',

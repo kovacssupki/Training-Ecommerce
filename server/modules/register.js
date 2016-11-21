@@ -14,6 +14,7 @@ var exports = module.exports = function register(req, res){
     email : user.email,
     username : user.username,
     password : user.password,
+    repass : user.repass,
     address : user.address,
     activationCode : activationCode.toString()
   });
@@ -21,14 +22,14 @@ var exports = module.exports = function register(req, res){
 
 //create a payload with our user,and send it instead of the normal json newUser
 
-
   newUser.save(onSuccessCallback, onErrorCallback);
   function onSuccessCallback(err,doc){
     if(doc){
 
       //sendgrid email
       var helper = require('sendgrid').mail;
-      var sg = require('sendgrid')('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');
+      // var sg = require('sendgrid')('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');
+      var sg = require('sendgrid')('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');
       var from_email = new helper.Email('2016shoppingcart@gmail.com');
       var to_email = new helper.Email(newUser.email);
       var subject = 'Welcome to Mike\'s shopping cart! Confirm your email';
@@ -54,11 +55,7 @@ var exports = module.exports = function register(req, res){
       console.log(response.headers);
       });
 
-      // res.send({ message: 'ok', user: newUser});
-      // res.status(202).send({
-      //   user: newUser,
-      //   token: token
-      // });
+
       createSendToken(newUser, res);
     }else{
       res.send({ error : err});
@@ -66,7 +63,6 @@ var exports = module.exports = function register(req, res){
   }//success
 
   function onErrorCallback(error){
-    res.status(400);
     res.send({error: error});
   }//error
 
@@ -77,7 +73,7 @@ var exports = module.exports = function register(req, res){
     }
     var token = jwt.encode(payload, "shhh..");
 
-    res.status(202).send({
+    res.send({
       user: user,
       token: token
     });

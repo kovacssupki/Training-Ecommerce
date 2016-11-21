@@ -2,7 +2,6 @@
     'use strict'
     angular
         .module('app')
-<<<<<<< HEAD
         .config(appConfig)
         .constant('API_URL','http://localhost:3000/')
 
@@ -30,9 +29,10 @@
                        }else{
                          console.log('Error resolving the products from route');
                        }
-                     });
+                     })
                    }]
-             }
+
+             }//resolve
 
             })
             .state('register',{
@@ -75,18 +75,23 @@
               }
             })
             .state('cart', {
-              url:'/cart/:username',
+              url:'/cart/:userid',
               templateUrl:'client/store/views/cart.html',
               controller:'CartController',
               controllerAs:'vm',
-
               resolve:{
                 // cart:['$stateParams','$http', function($stateParams, $http){
-                //   return $http.get('/cart/' + $stateParams.username).then(function(response){
+                //   return $http.post('/cart/'+ $stateParams.userid + '/create',{ userid: $stateParams.userid}).then(function(response){
                 //     console.log(response.data);
-                //       return response.data;
+                //     return response.data;
                 //   })
                 // }]
+                cart:['$stateParams','$http', function($stateParams, $http){
+                  return $http.get('/cart/'+ $stateParams.userid ).then(function(response){
+                    console.log(response.data);
+                    return response.data;
+                  })
+                }]
               }
             })
 
@@ -96,23 +101,7 @@
 
 
 
-=======
-        .config(appConfig);
 
-    appConfig.$inject=['$stateProvider', '$urlRouterProvider'];
 
-    function appConfig($stateProvider, $urlRouterProvider){
-        console.log('merge la url route!');
-        $urlRouterProvider.otherwise('/home');
 
-        $stateProvider
-            .state('default', {
-                url:'/',
-                template:'<div ng-include="\'/client/views/navigation.html \'"></div>\
-                <div data-ui-view="default"></div>',
-                controller:'NavController',
-                controllerAs:'vm'
-            })
-        }
->>>>>>> 70425247f628429d21f7758a942827f465d3ccf3
 })();

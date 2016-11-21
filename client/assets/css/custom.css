@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 body{
   font-family: Lato;
 }
@@ -148,8 +148,19 @@ body{
 /*cart*/
 .cart-btn{
   width:258px;
-=======
+}
 .store-grid{
   height:550px;
->>>>>>> 70425247f628429d21f7758a942827f465d3ccf3
+}
+.cart-img{
+  height:200px;
+}
+.cart-item-details{
+  // margin-top:30px;
+}
+.cart-item{
+  margin: 25px 30px 0px;
+  border: 1px solid black;
+  border-radius: 25px;
+  background: #4e5d6c;
 }

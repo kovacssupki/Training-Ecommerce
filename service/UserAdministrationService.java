@@ -1,6 +1,7 @@
 /**
  * This class is used to communicate with the front end, through Json objects.
  * Used to register, create, activate, disable Clients.
+ * The Path is "/" and produces json objects.
  * 
  * @author sandor.naghi
  */
@@ -20,20 +21,24 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.beans.Client;
 import com.dao.ClientDao;
 import com.encrypt.CodeDecodeTokens;
+import com.encrypt.MessageCreator;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @Path("/")
+@Produces(MediaType.APPLICATION_JSON)
 public class UserAdministrationService {
 
 	private ClientDao clientDao = new ClientDao();
+	private MessageCreator mc = new MessageCreator();
 	private CodeDecodeTokens cdt = new CodeDecodeTokens();
 	
 	/**
@@ -44,12 +49,12 @@ public class UserAdministrationService {
 	@POST
 	@Path("/user/register")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
 	public String register(String input) {
+		String result = null;
 		
 		// If the data from the front is empty, it returns Failed.
 		if (input.equals("")) {
-			String result = clientDao.setMessage("Failed", "No data");
+			result = mc.setMessage("Failed", "No data");
 			return result;
 		}
 		
@@ -58,10 +63,18 @@ public class UserAdministrationService {
 		String activationcode = RandomStringUtils.random(10, chars);								// create random activationcode
 		
 		/*
-		* Filling the data with additional information about the Client, like activation code.
+		* Fill the data with additional information about the Client, like activation code.
 		* From default all users all inactive, and none of them has administrator rights.
 		*/
-		JSONObject json = new JSONObject(input);
+		
+		JSONObject json = null;
+		try {
+			json = new JSONObject(input);
+		} catch (JSONException e) {
+			result = mc.setMessage("Failed", "Invalid data.");
+			return result;
+		}
+		
 		json.put("isactive", false);
 		json.put("activationcode", activationcode);
 		json.put("isadmin", false);
@@ -80,22 +93,22 @@ public class UserAdministrationService {
 		// If user already exists return Failed.
 		boolean exists = clientDao.clientExists(client);
 		if (exists) {
-			String result = clientDao.setMessage("Failed!", "Username exists.");
+			result = mc.setMessage("Failed!", "Username exists.");
 			return result;
 		}
 
 		// If the data provided is valid the return is Success, else Failed.
 		boolean isValid = clientDao.validateClient(client);
 		if (isValid) {
-			String id = clientDao.insertClient(client);
+			String id = clientDao.createClient(client);
 			if (id != null) {
 				client.setId(id);
 				clientDao.sendRegistrationEmail(client);
 			}
-			String result = "{\"Status\":\"Success\",\n\"Message\":\"Registered.\",\n\"Id\":\"" + id + "\"}";
+			result = "{\"Status\":\"Success\",\n\"Message\":\"Registered.\",\n\"Id\":\"" + id + "\"}";
 			return result;
 		} else {
-			String result = clientDao.setMessage("Failed", "Not registered.");
+			result = mc.setMessage("Failed", "Not registered.");
 			return result;
 		}
 	}
@@ -108,17 +121,17 @@ public class UserAdministrationService {
 	 */
 	@GET
 	@Path("user/{userid}/activate/{activationcode}")
-	@Produces(MediaType.APPLICATION_JSON)
 	public String userActivation(@PathParam ("userid") String id, @PathParam("activationcode") String activationcode) {
-		Client client = clientDao.getClientWithId(id);
+		String result = null;
+		Client client = clientDao.readClient(id);
 			
 		if ((client != null) && (client.getActivationcode().equals(activationcode))) {
 			client.setIsactive(true);
 			clientDao.clientActivation(client, true);
-			String result = clientDao.setMessage("Success", "Activated.");
-			return result;
+			result = mc.setMessage("Success", "Activated.");
+		} else {
+			result = mc.setMessage("Failed", "Inexistent Userid, or bad activation code.");
 		}
-		String result = clientDao.setMessage("Failed", "Inexistent Userid, or bad activation code.");
 		return result;
 	}
 	
@@ -130,32 +143,32 @@ public class UserAdministrationService {
 	 */
 	@POST
 	@Path("/user/disable/{userid}")
-	@Produces(MediaType.APPLICATION_JSON)
 	public String disbleUser(@PathParam("userid") String id, @HeaderParam("token") String token) {
+		String result = null;
 		
 		// If the token is empty the response is Failure.
 		if (token == null){
-			String result = clientDao.setMessage("Failed", "Token not exists.");
+			result = mc.setMessage("Failed", "Token not exists.");
 			return result;
 		}
 		
 		// If the user don't have rights to disable the Client the response is Failure.
 		boolean haveRights = cdt.userIsAdmin(token);
 		if (!haveRights) {
-			String result = clientDao.setMessage("Failed", "Don't have administrator permission to disable user.");
+			result = mc.setMessage("Failed", "Don't have administrator permission to disable user.");
 			return result;
 		}
 		
-		Client client = clientDao.getClientWithId(id);
+		Client client = clientDao.readClient(id);
 		
 		if (client != null) {
 			client.setIsactive(false);
 			clientDao.clientActivation(client, false);
-			String result = clientDao.setMessage("Success", "Disabled.");
+			result = mc.setMessage("Success", "Disabled.");
 			return result;
+		} else {
+			result = mc.setMessage("Failed", "Inexistent Userid.");
 		}
-		
-		String result = clientDao.setMessage("Failed", "Inexistent Userid.");
 		return result;
 	}
 	
@@ -167,33 +180,32 @@ public class UserAdministrationService {
 	 */
 	@POST
 	@Path("/user/activate/{userid}")
-	@Produces(MediaType.APPLICATION_JSON)
 	public String activateUser(@PathParam("userid") String id, @HeaderParam("token") String token) {
+		String result = null;
 		
 		// If the token is empty, the message is Fail.
 		if (token == null){
-			String result = clientDao.setMessage("Failed", "Token not exists.");
+			result = mc.setMessage("Failed", "Token not exists.");
 			return result;
 		}
 		
 		// If the user don't have rights to activate the Client the response is Failure.
 		boolean haveRights = cdt.userIsAdmin(token);
 		if (!haveRights) {
-			String result = clientDao.setMessage("Failed", "Don't have administrator permission to activate user.");
+			result = mc.setMessage("Failed", "Don't have administrator permission to activate user.");
 			return result;
 		}
 		
 		// Identify the Client based upon his id.
-		Client client = clientDao.getClientWithId(id);
+		Client client = clientDao.readClient(id);
 		// If exists it's activated.
 		if (client != null) {
 			client.setIsactive(true);
 			clientDao.clientActivation(client, true);
-			String result = clientDao.setMessage("Success", "Activated.");
-			return result;
+			result = mc.setMessage("Success", "Activated.");
+		} else {
+			result = mc.setMessage("Failed", "Inexistent Userid.");
 		}
-		
-		String result = clientDao.setMessage("Failed", "Inexistent Userid.");
 		return result;
 	}
 	
@@ -205,24 +217,24 @@ public class UserAdministrationService {
 	 */
 	@POST
 	@Path("/user/resetPassword/{userid}")
-	@Produces(MediaType.APPLICATION_JSON)
 	public String resetPassword(@PathParam("userid") String id, @HeaderParam("token") String token) {
+		String result = null;
 		
 		// If the token is empty, the message is Fail.
 		if (token == null){
-			String result = clientDao.setMessage("Failed", "Token not exists.");
+			result = mc.setMessage("Failed", "Token not exists.");
 			return result;
 		}
 		
 		// If the user don't have rights to activate the Client the response is Failure.
 		boolean haveRights = cdt.userIsAdmin(token);
 		if (!haveRights) {
-			String result = clientDao.setMessage("Failed", "Don't have administrator permission.");
+			result = mc.setMessage("Failed", "Don't have administrator permission.");
 			return result;
 		}
 		
 		// Identify the Client based upon the id.
-		Client client = clientDao.getClientWithId(id);
+		Client client = clientDao.readClient(id);
 		if (client != null) {
 			// create random password
 			String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -234,11 +246,10 @@ public class UserAdministrationService {
 			client.setPassword(newPassword);
 			clientDao.resetPassword(client);
 			
-			String result = clientDao.setMessage("Success", "Password reset.");
-			return result;
+			result = mc.setMessage("Success", "Password reset.");
+		} else {
+			result = mc.setMessage("Failed", "Inexistent Userid.");
 		}
-		
-		String result = clientDao.setMessage("Failed", "Inexistent Userid.");
 		return result;
 	}
 	
@@ -249,26 +260,26 @@ public class UserAdministrationService {
 	 */
 	@GET
 	@Path("/user/userlist")
-	@Produces(MediaType.APPLICATION_JSON)
 	public String getUsers(@HeaderParam("token") String token) {
+		String result = null;
 		
 		// If the token is empty, the message is Fail.
 		if (token == null){
-			String result = clientDao.setMessage("Failed", "Token not exists.");
+			result = mc.setMessage("Failed", "Token not exists.");
 			return result;
 		}
 		
 		// If the user don't have rights to activate the Client the response is Failure.
 		boolean haveRights = cdt.userIsAdmin(token);
 		if (!haveRights) {
-			String result = clientDao.setMessage("Failed", "Don't have administrator permission.");
+			result = mc.setMessage("Failed", "Don't have administrator permission.");
 			return result;
 		}
 		
 		List<String> list = clientDao.getUsersList();
 		
 		if (list.isEmpty()) {
-			String result = "{\"Message\":\"No users.\"}";
+			result = "{\"Message\":\"No users.\"}";
 			return result;
 		}
 		
@@ -276,4 +287,3 @@ public class UserAdministrationService {
 	}
 	
 }
-

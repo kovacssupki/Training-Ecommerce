@@ -17,20 +17,28 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Client {
 	
 	private String id;
+	
 	@JsonProperty("email")
 	private String email;
+	
 	@JsonProperty("username")
 	private String username;
+	
 	@JsonProperty("password")
 	private String password;
+	
 	@JsonProperty("name")
 	private String name;
+	
 	@JsonProperty("isactive")
 	private boolean isactive;
+	
 	@JsonProperty("isadmin")
 	private boolean isadmin;
+	
 	@JsonProperty("activationcode")
 	private String activationcode;
+	
 	@JsonIgnoreProperties(ignoreUnknown = true)
 	private Address address;
 
@@ -140,7 +148,7 @@ public class Client {
 	}
 
 	/**
-	 * The overridden hashcode method.
+	 * The overridden hashcode() method.
 	 */
 	@Override
 	public int hashCode() {
@@ -159,7 +167,7 @@ public class Client {
 	}
 
 	/**
-	 * The overridden equals method.
+	 * The overridden equals() method.
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -211,8 +219,4 @@ public class Client {
 			return false;
 		return true;
 	}
-
-	
-
-	
 }

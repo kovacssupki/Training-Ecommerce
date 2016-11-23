@@ -87,7 +87,7 @@ public class CodeDecodeTokens {
 		Client admin = null;
 		
 		if (claims != null) {
-			admin = clientDao.getClientWithId(claims.getId());
+			admin = clientDao.readClient(claims.getId());
 			if (admin.isIsadmin() && admin.getUsername().equals(claims.getSubject()) && admin.getPassword().equals(claims.getIssuer())) {
 				return true;
 			}
@@ -101,16 +101,25 @@ public class CodeDecodeTokens {
 	 * @param token	JavaWebToken that identify's the Client.
 	 * @return	true if the Client has rights for the operation, false if not.
 	 */
-	public boolean clientHasRights(String token) {
+	public boolean clientHasRights(String token, String userid) {
 		Claims claims = decodeToken(token);
 		Client client = null;
 		
 		if (claims != null) {
-			client = clientDao.getClientWithId(claims.getId());
-			if (client.getUsername().equals(claims.getSubject()) && client.getPassword().equals(claims.getIssuer()) && client.isIsactive()) {
+			client = clientDao.readClient(claims.getId());
+			if (client.getUsername().equals(claims.getSubject()) && client.getPassword().equals(claims.getIssuer()) && client.isIsactive() && claims.getId().equals(userid)) {
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	public String clientIsValid(String token) {
+		Claims claims = decodeToken(token);
+		
+		if (claims != null) {
+			return claims.getId();
+		}
+		return null;
 	}
 }

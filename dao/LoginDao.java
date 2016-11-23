@@ -22,7 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class LoginDao {
 
 	/**
-	 * Getting the user from the DB upon the username, and password.
+	 * Get the user from the DB upon the username, and password.
 	 * @param username	Username of the Client.
 	 * @param pass		Password of the Client.
 	 * @return	The Client object if it exists, or null if not.

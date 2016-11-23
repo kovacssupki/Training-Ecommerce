@@ -1,3 +1,13 @@
+/**
+ * This class contains information about the clients Cart.
+ * 	userid			- The id of the Client;
+ *  totalquantity	- The quantity of object inside the Cart.
+ *  totalcost		- Total cost of items in the Cart.
+ *  items			- List of id's and quantities of products in the Cart.
+ *  
+ *  @author sandor.naghi
+ */
+
 package com.beans;
 
 import java.util.List;
@@ -6,48 +16,61 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Cart {
 
-	private long id;
+	@JsonProperty("userid")
+	private String userid;
 	
-	@JsonProperty("totalQuantity")
-	private int totalQuantity;
+	@JsonProperty("totalquantity")
+	private int totalquantity;
 	
-	@JsonProperty("totalCost")
-	private long totalCost;
+	@JsonProperty("totalcost")
+	private long totalcost;
 	
 	@JsonProperty("items")
 	private List<String> items;
-
+	
+	/**
+	 * Default constructor.
+	 */
 	public Cart() {
 	}
 
-	public Cart(int totalQuantity, long totalCost, List<String> items) {
-		this.totalQuantity = totalQuantity;
-		this.totalCost = totalCost;
+	/**
+	 * Constructor of the class with arguments.
+	 * @param totalquantity	- Total quantity of products in the Cart.
+	 * @param totalcost	- Total cost of products in the Cart.
+	 * @param items	- List of id's and quantities of products from the Cart.
+	 */
+	public Cart(int totalquantity, long totalcost, List<String> items) {
+		this.totalquantity = totalquantity;
+		this.totalcost = totalcost;
 		this.items = items;
 	}
 
-	public long getId() {
-		return id;
+	/**
+	 * Public getters and setters.
+	 */
+	public String getUserid() {
+		return userid;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
-	public int getTotalQuantity() {
-		return totalQuantity;
+	public int getTotalquantity() {
+		return totalquantity;
 	}
 
-	public void setTotalQuantity(int totalQuantity) {
-		this.totalQuantity = totalQuantity;
+	public void setTotalquantity(int totalquantity) {
+		this.totalquantity = totalquantity;
 	}
 
-	public long getTotalCost() {
-		return totalCost;
+	public long getTotalcost() {
+		return totalcost;
 	}
 
-	public void setTotalCost(long totalCost) {
-		this.totalCost = totalCost;
+	public void setTotalcost(long totalcost) {
+		this.totalcost = totalcost;
 	}
 
 	public List<String> getItems() {
@@ -58,17 +81,23 @@ public class Cart {
 		this.items = items;
 	}
 
+	/**
+	 * The overridden hashcode() method.
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((items == null) ? 0 : items.hashCode());
-		result = prime * result + (int) (totalCost ^ (totalCost >>> 32));
-		result = prime * result + totalQuantity;
+		result = prime * result + (int) (totalcost ^ (totalcost >>> 32));
+		result = prime * result + totalquantity;
+		result = prime * result + ((userid == null) ? 0 : userid.hashCode());
 		return result;
 	}
 
+	/**
+	 * The overridden equals() method.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -78,19 +107,20 @@ public class Cart {
 		if (getClass() != obj.getClass())
 			return false;
 		Cart other = (Cart) obj;
-		if (id != other.id)
-			return false;
 		if (items == null) {
 			if (other.items != null)
 				return false;
 		} else if (!items.equals(other.items))
 			return false;
-		if (totalCost != other.totalCost)
+		if (totalcost != other.totalcost)
 			return false;
-		if (totalQuantity != other.totalQuantity)
+		if (totalquantity != other.totalquantity)
+			return false;
+		if (userid == null) {
+			if (other.userid != null)
+				return false;
+		} else if (!userid.equals(other.userid))
 			return false;
 		return true;
-	}
-
-		
+	}	
 }

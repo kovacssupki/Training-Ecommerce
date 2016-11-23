@@ -35,7 +35,7 @@ import com.service.MailService;
 public class ClientDao {
 	
 	/**
-	 * Validating the clients data: email address, password and username.
+	 * Validate the clients data: email address, password and username.
 	 * @param client	Client that will be validated.
 	 * @return	true if the data is valid, and false if at least one of the data is not correct.
 	 */
@@ -48,7 +48,7 @@ public class ClientDao {
 	}
 	
 	/**
-	 * Validating the email address of the Client.
+	 * Validate the email address of the Client.
 	 * @param email	The email address.
 	 * @return	true if it is a valid email address, false if it's not valid.
 	 */
@@ -62,11 +62,11 @@ public class ClientDao {
 	}
 	
 	/**
-	 * Inserting the Clients data in the DB.
+	 * Insert the Clients data in the DB.
 	 * @param client	Client need to be inserted.
 	 * @return	The clients id if the insertion is success, null if it heas'nt.
 	 */
-	public String insertClient(Client client){
+	public String createClient(Client client){
 		// create a hash(md5) for the password, that will be saved in DB
 		EncryptPassword encrypt = new EncryptPassword();
 		client.setPassword(encrypt.encryptpasswordMD5(client.getPassword()));
@@ -95,11 +95,11 @@ public class ClientDao {
 	}
 	
 	/**
-	 * Getting a client from the DB identified by his id.
+	 * Get the client from the DB identified by his id.
 	 * @param id	The id of the client.
 	 * @return	The client if it exists, or null if it does'nt.
 	 */
-	public Client getClientWithId(String id) {
+	public Client readClient(String id) {
 		TransportClient transportClient = null;
 		Client client = null;
 	
@@ -132,7 +132,7 @@ public class ClientDao {
 	}
 	
 	/**
-	 * Activating or disabling a Client.
+	 * Activate or disable a Client.
 	 * @param client	The Client needed to activate, or disabled.
 	 * @param isactive	true if the Client is activated, or false if disabled.
 	 */
@@ -160,7 +160,7 @@ public class ClientDao {
 	}
 	
 	/**
-	 * Reseting the password of the Client in DB.
+	 * Reset the password of the Client in DB.
 	 * @param client	Client that needs resetting the password.
 	 */
 	public void resetPassword(Client client) {
@@ -190,7 +190,7 @@ public class ClientDao {
 	}
 	
 	/**
-	 * Checking if a Client is in the DB or not.
+	 * Check if a Client exists in the DB or not.
 	 * @param newClient	The Client that is checked.
 	 * @return	true if the Client already exists, or false if it does'nt.
 	 */
@@ -235,7 +235,7 @@ public class ClientDao {
 	}
 
 	/**
-	 * Sending a registration email to the Client with his username, activation code, and activation link.
+	 * Send a registration email to the Client with his username, activation code, and activation link.
 	 * @param client	Client who will get the email.
 	 */
 	public void sendRegistrationEmail(Client client) {
@@ -251,7 +251,7 @@ public class ClientDao {
 	}
 	
 	/**
-	 * Sending an email with the new password for the Client.
+	 * Send an email with the new password for the Client.
 	 * @param emailAddress	Email address of the Client.
 	 * @param subject	New password of Client.
 	 */
@@ -262,18 +262,7 @@ public class ClientDao {
 	}
 	
 	/**
-	 * Setting the message that will be send as a Response.
-	 * @param status	The status of the Response, Success, or Failed.
-	 * @param message	Additional information.
-	 * @return	A Json with above information.
-	 */
-	public String setMessage(String status, String message) {
-		String result = "{\"Status\":\"" + status + "\",\n\"Message\":\"" + message + "\"}";
-		return result;
-	}
-	
-	/**
-	 * Getting a list of all Clients in the application, active or not.
+	 * Get a list of all Clients in the application, active or not.
 	 * @return	The list of Clients.
 	 */
 	public List<String> getUsersList() {

@@ -1,6 +1,7 @@
 /**
  * This class is used to communicate with the front end of the application, through Json string objects.
  * It is used on the login.
+ * The Path of the Class is "user/login"
  * 
  * @author sandor.naghi
  */
@@ -12,18 +13,19 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.beans.Client;
-import com.dao.ClientDao;
 import com.dao.LoginDao;
 import com.encrypt.CodeDecodeTokens;
+import com.encrypt.MessageCreator;
 
 @Path("/user/login")
 public class LoginService {
 
 	private LoginDao loginDao = new LoginDao();
-	private ClientDao clientDao = new ClientDao();
+	private MessageCreator mc = new MessageCreator();
 	
 	/**
 	 * Identifying the Client, based upon username and password.
@@ -34,17 +36,26 @@ public class LoginService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public String login(String input) {
-
+		String result = null;
+		
 		// If the data from the front is empty, it returns Failed.
 		if (input.equals("")) {
-			String result = clientDao.setMessage("Failed", "No data");
+			result = mc.setMessage("Failed", "No data");
 			return result;
 		}
 		
 		// Creating a JSon object, from which retrieve the login information.
-		JSONObject jsonRequest = new JSONObject(input);
-		String username = jsonRequest.getString("username");
-		String password = jsonRequest.getString("password");
+		JSONObject jsonRequest = null;
+		String username = null;
+		String password = null;
+		try {
+			jsonRequest = new JSONObject(input);
+			username = jsonRequest.getString("username");
+			password = jsonRequest.getString("password");
+		} catch (JSONException e) {
+			result = mc.setMessage("Failed", "Invalid data.");
+			return result;
+		}
 		
 		// Identifying the Client.
 		Client client = loginDao.getClientWithUsername(username, password);
@@ -55,11 +66,11 @@ public class LoginService {
 			CodeDecodeTokens cdt = new CodeDecodeTokens();
 			String token = cdt.generateToken(client.getId(), client.getUsername(), client.getPassword());
 			
-			String result = clientDao.setMessage("Success", token);
+			result = mc.setMessage("Success", token);
 			return result;
 		}
 		
-		String result = clientDao.setMessage("Failed", "Bad username or password.");
+		result = mc.setMessage("Failed", "Bad username or password.");
 		return result;
 	}
 }

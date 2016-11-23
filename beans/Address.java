@@ -14,10 +14,13 @@ public class Address {
 
 	@JsonProperty("street")
 	private String street;
+	
 	@JsonProperty("town")
 	private String town;
+	
 	@JsonProperty("county")
 	private String county;
+	
 	@JsonProperty("zip")
 	private int zip;
 
@@ -78,7 +81,7 @@ public class Address {
 	}
 
 	/**
-	 * The overridden hashcode method.
+	 * The overridden hashcode() method.
 	 */
 	@Override
 	public int hashCode() {
@@ -92,7 +95,7 @@ public class Address {
 	}
 
 	/**
-	 * The overridden equals method.
+	 * The overridden equals() method.
 	 */
 	@Override
 	public boolean equals(Object obj) {

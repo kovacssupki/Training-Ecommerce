@@ -18,7 +18,7 @@
 
         alertTimeout = $timeout(function(){
           $rootScope.alert.show = false;
-        }, timeout || 4000)
+        }, timeout || 2000)
       }
     });//service end
 })();

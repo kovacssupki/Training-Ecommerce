@@ -73,9 +73,6 @@ app.get('/users', require('./modules/users.js'));
 //Login
 app.post('/user/login', require('./modules/login.js'));
 
-//Confirm
-// app.post('/user/activate', require('./modules/confirm.js'))
-
 //Cart Get
 app.get('/cart/:userid', require('./modules/getcart.js'))
 
@@ -91,12 +88,20 @@ app.delete('/cart/:userid/removeitem/:itemid', require('./modules/removeItemCart
 //Activate - final step
 app.put('/activate/:activationCode', require('./modules/confirm.js'));
 
+// ORDERS
+app.get('/order/:userid/create', require('./modules/createOrder.js'))
+app.get('/orders/:userid/list', require('./modules/getOrders.js') )
+
+// Add Product - ADMIN
+app.post('/product/create', require('./modules/addProduct.js'))
+
+
+
+
 
 app.get('*',function (req, res) {
     res.redirect('/');
 });
-
-
 
 
 var server = require('http').createServer(app);

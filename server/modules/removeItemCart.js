@@ -18,12 +18,10 @@ User.findOne({ _id: userid }, function(err, user){
   if(!user){
     return;
   }
-  var deletedItem = user.cart.filter(function(item){
-    return item = itemid;
-  })[0];
-  console.log(deletedItem);
 
-  user.cart.remove(deletedItem);
+  // console.log(itemid);
+
+  user.cart.remove(itemid);
   user.save(function(err, user){
     if(err) throw err;
     res.send({ status : 'deleted successfully'});

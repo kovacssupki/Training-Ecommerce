@@ -30,7 +30,7 @@
             $state.go('main');
           })
           .error(function(err){
-            alert('warning','Oopss!', 'Could not login :( ',err.message)
+            alert('warning','Oopss!', 'Could not login :( ')
           })
 
         }//register fn

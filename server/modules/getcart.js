@@ -12,22 +12,24 @@ var exports = module.exports = function add(req, res){
   var payload = jwt.decode(token, "shhh..");
   var userid = payload.sub;
 
-User.findOne({ _id: userid }).populate("cart", "name imageUrl price instock" ).exec(function(err, user){
+User.findOne({ _id: userid }).populate({
+  path:"cart.itemId",
+  model: 'Product',
+  select: "name imageUrl price instock"
+})
+
+.exec(function(err, user){
 
   if(err) throw err;
   if(!user){
     return;
   }
+  // console.log("user-populate: ", user.cart);
 
-  // var populated = User.populate(user,{ path: ,model:});
+   res.send({ user: user })
 
-  res.send({ user: user})
+})//exec
 
-  console.log(user);
-
-})
-
-  console.log("Req body is:",req.body)
 
 
 }//exports var

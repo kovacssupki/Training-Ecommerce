@@ -37,15 +37,17 @@
                    <input ng-model="vm.query" placeholder="Search products"><br>
                    <label for="search" class="shop-label">Sort By :</label>
                    <select ng-model="vm.orderProp" class="shop_panel_option">
-
                      <option value="name">Alphabetical</option>
                      <option value="age">Newest</option>
                    </select>
                  </form>
                </div>
                <div class="col-sm-8">
-                 <div class="pull-right">
-                   <a data-ng-click="vm.goToCart()"><i class="fa fa-shopping-cart fa-2x shop-icon"></i><span>Shopping Cart( {{ vm.itemCount().count}} items - {{ vm.getTotal().total }} $)</span></a>
+                 <div class="pull-left ">
+                  <a class="btn btn-primary" data-ng-show="vm.checkLogged()" data-ng-click="vm.add()" role="button" ng-click="">Add product</a>
+                 </div>
+                 <div class="pull-right go_cart_div">
+                   <a class="go_cart_btn" data-ng-click="vm.goToCart()"><i class="fa fa-shopping-cart fa-2x shop-icon"></i><span>Cart( {{ vm.itemCount().count || 0}} items - {{ vm.totalCost().total || 0}} $)</span></a>
                  </div>
                </div>
              </div>
@@ -60,22 +62,30 @@
               <div class="row">
               <div class="col-sm-3 col-sm-offset-1 " data-ng-repeat="product in vm.products | filter:vm.query | orderBy:vm.orderProp">
                 <div class="thumbnail store-grid">
-                  <img ng-src="{{product.imageUrl}}" alt="{{phone.name}}"/>
+                  <img ng-src="{{product.imageUrl}}" alt="{{phone.name}}" class="store_prod_img"/>
                   <div class="caption">
                     <h4>{{product.name}}</h4>
 
                     <p class="price">{{product.price | currency}}</p>
                     <form id="product-form">
-                      <span>Quantity</span> <br>
+                      <!-- <span>Quantity</span> <br> -->
 
-                        <input type="number" class="quantity-input" min="0" max="{{product.instock}}" ng-model="product.quantity" ng-init="product.quantity=1"/>
-                        <p>Selected quantity: {{ product.quantity || 0 }} items</p>
+                        <!-- <input type="number" class="quantity-input" min="0" max="{{product.instock}}" ng-model="product.quantity" ng-init="product.quantity=1"/> -->
+                        <div class="prod_quantity">
+                          <a class="subtract" data-ng-click="vm.subQ(product)">
+                            <i class="fa fa-minus"></i>
+                          </a>
+                          <input type="number" min="0" max="{{ product.instock}}"ng-model="product.quantity" ng-init="product.quantity=1">
+                          <p class="add" data-ng-click="vm.addQ(product)">
+                            <i class="fa fa-plus"></i>
+                          </p>
+                        </div>
                         <p>Total price :  {{ product.price * product.quantity || 0 }} $ </p>
 
                       <p><span><p>{{product.instock - product.quantity}} available in stock!</p></span></p>
                     </form>
 
-                    <span><a class="btn btn-primary" role="button" ng-click="vm.addToCart(product);">Add to cart</a></span>
+                    <span><a href="#"class="btn btn-primary" role="button" ng-click="vm.addToCart(product);">Add to cart</a></span>
                     <span><a class="btn btn-primary" role="button" ng-click="vm.details(product)">View details</a></span>
                     <!-- <div class="alert alert-{{ alert.type }} animated main-alert" data-ng-class="{'flipInY': alert.show, 'flipOutY':!alert.show,'alert-hidden': !alert.hasBeenShown 	}"><strong>{{alert.title}}</strong>{{alert.message}}</div> -->
                   </div>

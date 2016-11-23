@@ -5,6 +5,7 @@
       <li ui-sref-active="active"><a ui-sref="jobs">Jobs</a></li>
       <li data-ng-hide="vm.isAuthenticated()" ui-sref-active="active"><a ui-sref="login">Login</a></li>
       <li data-ng-show="vm.isAuthenticated()"  ui-sref-active="active"><a ui-sref="logout">Logout</a></li>
+      <li data-ng-show="vm.isAuthenticated()"  ui-sref-active="active"><a ui-sref="cart">Cart</a></li>
       <div data-ng-include="'client/store/views/alert.html'"></div>
     </ul>
     <a class="navbar-brand" href="/"><img data-ng-src="{{ vm.logoPath}}" alt="Logo" class="logo"></a>
@@ -30,26 +31,32 @@
 
 
              <div class="col-sm-6">
+               <div class="alert alert-info empty_cart" data-ng-show="vm.empty()"role="alert">No products in cart yet!</div>
+
                <div class="col-sm-12 cart-item" ng-repeat="item in vm.cart.items">
                    <div class="col-sm-4">
-                       <img ng-src="{{item.imageUrl}}" class="cart-img">
+                       <img ng-src="{{item.itemId.imageUrl}}" class="cart-img">
                    </div>
                    <div class="col-sm-8">
                      <div class="cart-item-details">
-                       <h5>{{item.name}}</h5><br>
-                       <p class="price">{{ item.price }} $</p>
-                       <p class="item-detail-label ">Quantity : <input type="number" min="0" max="{{item.instock}}" ng-init="item.quantity=1" ng-model="item.quantity"value="{{item.quantity}}"/></p>
-                       <p class="item-detail-label">Stock : {{ item.instock - item.quantity }}</p>
-                       <p class="item-detail-label">Total Price : {{ item.quantity * item.price}} $</p>
+                       <h5>{{item.itemId.name}}</h5><br>
+                       <p class="price">{{ item.itemId.price }} $</p>
+                       <p class="item-detail-label">Quantity : <input type="number" min="0" max="{{item.itemId.instock}}"  ng-model="item.quantity" value="{{item.quantity}}"/></p>
+                       <p class="item-detail-label">Stock : {{ item.itemId.instock - item.quantity }}</p>
+                       <p class="item-detail-label">Total Price : {{ item.quantity * item.itemId.price}} $</p>
                        <button class="btn btn-danger" ng-click="vm.removeItem(item)">Remove from cart</button>
                        <button class="btn btn-primary">View details</button>
                      </div>
                    </div>
                </div>
              </div>
-               <div class="col-sm-5 col-sm-offset-1">
-                 <h2><strong>Total items : {{ vm.itemCount().count }} items</strong></h2>
-                 <h2><strong>Total cost : {{ vm.cartTotal().total }} $</strong> </h2><br>
-                 <button class="btn btn-default cart-btn" data-ng-click="vm.backToStore()">Back to store </button><br>
-                 <button class="btn btn-danger cart-btn" >Clear cart </button><br>
-                 <button class="btn btn-primary cart-btn" >Checkout</button>
+               <div class="col-sm-5 col-sm-offset-1 cart_details">
+                 <div class="cart-details-wrapper">
+                   <button class="btn btn-default cart-btn-bts" data-ng-click="vm.backToStore()">Back to store </button><br>
+                   <h2><strong>Items : {{ vm.itemCount().count }} items</strong></h2>
+                   <h2><strong>Total cost : {{ vm.totalCost().total }} $</strong> </h2><br>
+                   <button class="btn btn-warning cart-btn" data-ng-click="vm.goToOrders()">My Orders</button>
+                   <button class="btn btn-danger cart-btn" >Clear cart </button><br>
+                   <button class="btn btn-primary cart-btn" data-ng-click="vm.checkout()" >Checkout</button><br>
+                 </div>
+               </div>

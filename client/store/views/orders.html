@@ -1,0 +1,72 @@
+<div class="container header_wrapper">
+  <div class="header">
+    <ul class="nav nav-pills pull-right">
+      <li ui-sref-active="active"><a ui-sref="main">Home</a></li>
+      <li ui-sref-active="active"><a ui-sref="jobs">Jobs</a></li>
+      <li data-ng-hide="vm.isAuthenticated()" ui-sref-active="active"><a ui-sref="login">Login</a></li>
+      <li data-ng-show="vm.isAuthenticated()"  ui-sref-active="active"><a ui-sref="logout">Logout</a></li>
+      <!-- <li data-ng-show="vm.isAuthenticated()"  ui-sref-active="active"><a ui-sref="cart">Cart</a></li> -->
+      <li data-ng-show="vm.isAuthenticated()"  ui-sref-active="active"><a ui-sref="orders">Orders</a></li>
+      <div data-ng-include="'client/store/views/alert.html'"></div>
+    </ul>
+    <a class="navbar-brand" href="/"><img data-ng-src="{{ vm.logoPath}}" alt="Logo" class="logo"></a>
+  </div>
+</div>
+
+<div class="intros">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <h4>These are your orders</h4>
+        <h5>Here you can track the history and see full details of your orders.</h5>
+      </div>
+      <div class="col-sm-6">
+        <button class="btn btn-warning cart-btn pull-right" data-ng-click="vm.backToCart()">Back to cart</button>
+      </div>
+    </div>
+  </div>
+
+</div><!--intros-->
+
+
+<div class="container">
+<div class="alert alert-info empty_orders" data-ng-show="vm.empty()" role="alert">No orders!</div>
+<div ng-controller="AccordionController" class="orders">
+  <script type="text/ng-template" id="group-template.html">
+    <div class="panel panel-default" >
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a href tabindex="0" class="accordion-toggle order_anchor" ng-click="toggleOpen()" uib-accordion-transclude="heading">
+            <span uib-accordion-header ng-class="{'text-muted': isDisabled}">
+              {{heading}}
+            </span>
+          </a>
+        </h4>
+      </div>
+      <div class="panel-collapse collapse row" uib-collapse="!isOpen">
+        <div class="panel-body" style="text-align: right" ng-transclude></div>
+      </div>
+    </div>
+  </script>
+
+
+  <uib-accordion close-others="oneAtATime">
+
+    <div uib-accordion-group class="panel-default"data-ng-repeat="order in vm.orders.orders" is-open="status.isCustomHeaderOpen" template-url="group-template.html">
+      <uib-accordion-heading>
+        <span class="order_title">Order</span><span class="order_id"> # {{ vm.orders.orders.indexOf(order) +1 }}</span> <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}" style='margin-left: 10px;'></i>
+        <span class="pull-right"><span class="order_title">Created at:</span> {{order.createdAt | date}}</span>
+      </uib-accordion-heading>
+
+
+
+        <div data-ng-repeat="item in order.cart">
+          <span class="order_item_name col-xs-10 text-left">{{ item.itemName }}</span>
+          <span class="order_item_quantity col-xs-2">Quantity: {{ item.quantity }}</span>
+        </div>
+      <!-- </span> -->
+    </div>
+
+  </uib-accordion>
+</div>
+</div><!--/container-->

@@ -30,6 +30,12 @@
                          console.log('Error resolving the products from route');
                        }
                      })
+                   }],
+                   cart:['$stateParams','$http', function($stateParams, $http){
+                     return $http.get('/cart/'+ $stateParams.userid ).then(function(response){
+                       console.log(response.data);
+                       return response.data;
+                     })
                    }]
 
              }//resolve
@@ -80,15 +86,29 @@
               controller:'CartController',
               controllerAs:'vm',
               resolve:{
-                // cart:['$stateParams','$http', function($stateParams, $http){
-                //   return $http.post('/cart/'+ $stateParams.userid + '/create',{ userid: $stateParams.userid}).then(function(response){
-                //     console.log(response.data);
-                //     return response.data;
-                //   })
-                // }]
                 cart:['$stateParams','$http', function($stateParams, $http){
                   return $http.get('/cart/'+ $stateParams.userid ).then(function(response){
                     console.log(response.data);
+                    return response.data;
+                  })
+                }]
+              }
+            })
+            .state('orders', {
+              url:'/cart/:userid/orders',
+              templateUrl:'client/store/views/orders.html',
+              controller: 'OrdersController',
+              controllerAs:'vm',
+              resolve:{
+                cart:['$stateParams','$http', function($stateParams, $http){
+                  return $http.get('/cart/'+ $stateParams.userid ).then(function(response){
+                    console.log(response.data);
+                    return response.data;
+                  })
+                }],
+                orders:['$stateParams','$http', function($stateParams, $http){
+                  return $http.get('/orders/'+ $stateParams.userid +'/list' ).then(function(response){
+                    // console.log(response.data);
                     return response.data;
                   })
                 }]

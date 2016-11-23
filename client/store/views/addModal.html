@@ -1,0 +1,47 @@
+<div id="detailsModal">
+
+          <div class="modal-header">
+              <h3 class="modal-title" id="modal-title">Product details</h3>
+          </div>
+          <div class="modal-body" id="modal-body">
+            <form class="form-horizontal">
+
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-10">
+                  <input type="text" ng-model="vm.product.name" class="form-control" autofocus id="inputName3" placeholder="Product Name" >
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">Description</label>
+                <div class="col-sm-10">
+                  <input type="email" ng-model="vm.product.description"  class="form-control" id="inputEmail3" placeholder="Description" >
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">Price</label>
+                <div class="col-sm-10">
+                  <input type="text" ng-model="vm.product.price" class="form-control" autofocus id="inputName3" placeholder="Price" >
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">Stock</label>
+                <div class="col-sm-10">
+                  <input type="text" ng-model="vm.product.stock" class="form-control" autofocus id="inputName3" placeholder="stock available" >
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">Image</label>
+                <div class="col-sm-10">
+                  <!-- <input type="text" ng-model="$addCtrl.student.repassword" class="form-control" autofocus id="inputName3" placeholder="upload" > -->
+                </div>
+              </div>
+
+              </form>
+          </div><!--/modal-body-->
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-primary btn-lg" ng-click="vm.addProd()">Ok</button>
+          </div>
+
+  </div><!--/updateModal-->

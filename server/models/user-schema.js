@@ -14,12 +14,13 @@ var UserSchema = new Schema({
   activationCode : { type: String },
   password: { type: String, required: true },
   repass: { type: String, required: true },
+  role: { type: String, default: 'client' },
   Address: { street: String,
              city: String,
              county: String,
              zip: Number
           },
-  cart : [{ type: Schema.Types.ObjectId, ref: "Product" }]
+  cart : [{ itemId: {type: Schema.Types.ObjectId, ref: "Product" }, quantity: Number, itemName: String }]
 });
 
 

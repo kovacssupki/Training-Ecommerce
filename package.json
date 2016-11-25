@@ -4,25 +4,21 @@
   "description": "eccomerce app",
   "main": "app.js",
   "scripts": {
-
     "start": "node server/app.js",
-
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mike&Shawny",
   "license": "ISC",
   "dependencies": {
-
     "bcrypt-nodejs": "0.0.3",
     "bower": "^1.7.9",
+    "busboy": "^0.2.13",
+    "connect-busboy": "0.0.2",
     "crypto": "0.0.3",
     "express": "^4.14.0",
+    "fs-extra": "^1.0.0",
     "mongoose": "^4.6.5",
-    "sendgrid": "^4.7.1",
-
-    "bower": "^1.7.9",
-    "express": "^4.14.0",
-    "mongoose": "^4.6.5"
-
+    "path": "^0.12.7",
+    "sendgrid": "^4.7.1"
   }
 }

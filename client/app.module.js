@@ -7,8 +7,7 @@
          'ngAnimate',
          'ui.bootstrap',
          'app.store',
-         'ui.bootstrap',
-         'app.store'
+         'angularFileUpload'
 
         ]);
 })();

@@ -9,11 +9,16 @@ var config = require('./modules/host.js');
 var jwt = require('./services/jwt.js');
 var Product = require('./models/product-schema');
 
+var busboy = require('connect-busboy'); //middleware for form/file upload
+var path = require('path');     //used for file path
+var fs = require('fs-extra');   //File System - for file manipulation
+
+
 
 // Connect to MongoDB and create/use database called ShoppingCart
 mongoose.connect('mongodb://localhost/ShoppingCart');
 
-
+app.use(busboy());
 app.use('/', router);
 app.use('/client', express.static(path.resolve(__dirname+ '/../client')));
 app.use(bodyParser.json());
@@ -92,9 +97,14 @@ app.put('/activate/:activationCode', require('./modules/confirm.js'));
 app.get('/order/:userid/create', require('./modules/createOrder.js'))
 app.get('/orders/:userid/list', require('./modules/getOrders.js') )
 
+
+
 // Add Product - ADMIN
 app.post('/product/create', require('./modules/addProduct.js'))
-
+// Upload - ADMIN
+app.post('/uploads', require('./modules/upload.js'))
+// Delete product - ADMIN
+app.delete('/product/:id/delete', require('./modules/deleteProduct.js'))
 
 
 

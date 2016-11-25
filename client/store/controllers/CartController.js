@@ -47,6 +47,7 @@
           $http.delete('/cart/'+ vm.userid +'/removeitem/'+ product._id).success(function(response){
             console.log('Deleted: ', response);
           }).then(successCallback,errorCallback)
+          
           function successCallback(){
              alert('success', 'Item removed from cart');
              $http.get('/cart/'+ vm.userid).success(function(response){
@@ -57,8 +58,6 @@
           function errorCallback(){
             console.log('Error removing item from cart');
           }
-
-
         }//removeItem
 
         vm.itemCount = function(){

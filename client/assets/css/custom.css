@@ -14,6 +14,12 @@ body{
 .store_prod_img{
   border-radius:25px;
 }
+.prod_img{
+  height:255px;
+  width:255px;
+  background:#fff;
+  border-radius: 25px;
+}
 
 /*.ui-view-container{
   position:relative;
@@ -133,6 +139,10 @@ body{
     position: absolute;
     top: -40px;
     right: 20px;
+}
+.delete_product{
+  width:95%;
+  margin-top:15px;
 }
 
 /* register */

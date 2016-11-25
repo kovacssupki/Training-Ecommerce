@@ -47,7 +47,7 @@
                   <a class="btn btn-primary" data-ng-show="vm.checkLogged()" data-ng-click="vm.add()" role="button" ng-click="">Add product</a>
                  </div>
                  <div class="pull-right go_cart_div">
-                   <a class="go_cart_btn" data-ng-click="vm.goToCart()"><i class="fa fa-shopping-cart fa-2x shop-icon"></i><span>Cart( {{ vm.itemCount().count || 0}} items - {{ vm.totalCost().total || 0}} $)</span></a>
+                   <a class="go_cart_btn" data-ng-if="vm.token" data-ng-click="vm.goToCart()"><i class="fa fa-shopping-cart fa-2x shop-icon"></i><span>Cart( {{ vm.itemCount().count || 0}} items - {{ vm.totalCost().total || 0}} $)</span></a>
                  </div>
                </div>
              </div>
@@ -62,7 +62,9 @@
               <div class="row">
               <div class="col-sm-3 col-sm-offset-1 " data-ng-repeat="product in vm.products | filter:vm.query | orderBy:vm.orderProp">
                 <div class="thumbnail store-grid">
-                  <img ng-src="{{product.imageUrl}}" alt="{{phone.name}}" class="store_prod_img"/>
+                  <div class="prod_img">
+                    <img ng-src="{{product.imageUrl}}" alt="{{phone.name}}" class="store_prod_img" width="250"/>
+                  </div>
                   <div class="caption">
                     <h4>{{product.name}}</h4>
 
@@ -87,6 +89,7 @@
 
                     <span><a href="#"class="btn btn-primary" role="button" ng-click="vm.addToCart(product);">Add to cart</a></span>
                     <span><a class="btn btn-primary" role="button" ng-click="vm.details(product)">View details</a></span>
+                    <a  class="btn btn-danger delete_product" data-ng-click="vm.delete(product)" data-ng-show="vm.checkLogged()"><i class="fa fa-trash" aria-hidden="true"></i>  Delete</a>
                     <!-- <div class="alert alert-{{ alert.type }} animated main-alert" data-ng-class="{'flipInY': alert.show, 'flipOutY':!alert.show,'alert-hidden': !alert.hasBeenShown 	}"><strong>{{alert.title}}</strong>{{alert.message}}</div> -->
                   </div>
                 </div>

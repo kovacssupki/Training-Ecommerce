@@ -30,13 +30,8 @@
                          console.log('Error resolving the products from route');
                        }
                      })
-                   }],
-                   cart:['$stateParams','$http', function($stateParams, $http){
-                     return $http.get('/cart/'+ $stateParams.userid ).then(function(response){
-                       console.log(response.data);
-                       return response.data;
-                     })
                    }]
+
 
              }//resolve
 

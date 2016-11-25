@@ -7,15 +7,18 @@ var Product = require('./../models/product-schema');
 
 var product = req.body;
 
+product.imageUrl = 'client/assets/img/phones/'+ product.imageUrl;
+
 var newProduct = new Product({
 
   name : product.name,
   description : product.description,
-  // imageUrl : user.username,
+  imageUrl :  product.imageUrl,
   price : product.price,
-  instock : product.instock,
+  instock : product.stock
 
 });
+
 newProduct.save(onSuccessCallback,onErrorCallback)
 
 function onSuccessCallback(err,doc){

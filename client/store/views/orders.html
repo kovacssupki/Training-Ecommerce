@@ -5,8 +5,6 @@
       <li ui-sref-active="active"><a ui-sref="jobs">Jobs</a></li>
       <li data-ng-hide="vm.isAuthenticated()" ui-sref-active="active"><a ui-sref="login">Login</a></li>
       <li data-ng-show="vm.isAuthenticated()"  ui-sref-active="active"><a ui-sref="logout">Logout</a></li>
-      <!-- <li data-ng-show="vm.isAuthenticated()"  ui-sref-active="active"><a ui-sref="cart">Cart</a></li> -->
-      <li data-ng-show="vm.isAuthenticated()"  ui-sref-active="active"><a ui-sref="orders">Orders</a></li>
       <div data-ng-include="'client/store/views/alert.html'"></div>
     </ul>
     <a class="navbar-brand" href="/"><img data-ng-src="{{ vm.logoPath}}" alt="Logo" class="logo"></a>
@@ -52,20 +50,27 @@
 
   <uib-accordion close-others="oneAtATime">
 
-    <div uib-accordion-group class="panel-default"data-ng-repeat="order in vm.orders.orders" is-open="status.isCustomHeaderOpen" template-url="group-template.html">
-      <uib-accordion-heading>
-        <span class="order_title">Order</span><span class="order_id"> # {{ vm.orders.orders.indexOf(order) +1 }}</span> <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}" style='margin-left: 10px;'></i>
-        <span class="pull-right"><span class="order_title">Created at:</span> {{order.createdAt | date}}</span>
-      </uib-accordion-heading>
+      <div uib-accordion-group class="panel-default"  data-ng-repeat="order in vm.orders" is-open="status.isCustomHeaderOpen" template-url="group-template.html">
+        <uib-accordion-heading>
+          <span class="order_title">Order</span><span class="order_id"> # {{ vm.orders.indexOf(order) +1 }}</span> <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}" style='margin-left: 10px;'></i>
+          <span data-ng-if="vm.loggedAdmin()" class="btn btn-warning user_orders">User: {{ order.username}}</span>
+          <span class="logged_admin" data-ng-if="vm.loggedAdmin()">
+            <button class="btn btn-success" data-ng-click="vm.confirm(order)">Confirm</button>
+            <button class="btn btn-danger" data-ng-click="vm.reject(order)">Reject</button>
+            <span class="btn btn-success" data-ng-disabled="!vm.confirmed(order)">Confirmed</span>
+            <completedBtn></completedBtn>
+          </span>
+          <span class="pull-right"><span class="order_title">Created at:</span> {{order.createdAt | date}}</span>
+        </uib-accordion-heading>
+
+          <div data-ng-repeat="item in order.cart">
+            <span class="order_item_name col-xs-10 text-left">{{ item.itemName }}</span>
+            <span class="order_item_quantity col-xs-2">Quantity: {{ item.quantity }}</span>
+          </div>
+        <!-- </span> -->
+      </div><!--accordion-grp-->
 
 
-
-        <div data-ng-repeat="item in order.cart">
-          <span class="order_item_name col-xs-10 text-left">{{ item.itemName }}</span>
-          <span class="order_item_quantity col-xs-2">Quantity: {{ item.quantity }}</span>
-        </div>
-      <!-- </span> -->
-    </div>
 
   </uib-accordion>
 </div>

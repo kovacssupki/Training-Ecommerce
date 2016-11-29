@@ -21,6 +21,7 @@ body{
   border-radius: 25px;
 }
 
+
 /*.ui-view-container{
   position:relative;
 }*/
@@ -144,6 +145,11 @@ body{
   width:95%;
   margin-top:15px;
 }
+.edit_prod{
+  position: relative;
+    left: 37px;
+    bottom: 25px;
+}
 
 /* register */
 
@@ -251,12 +257,14 @@ body{
   text-decoration:none;
 }
 .order_item_name{
-  /*background:#2b3e50;*/
   padding:5px 10px;
   display:inline-block;
-  /*width:300px;*/
-  /*float:left;*/
 }
-.order_item_quantity{
-
+.logged_admin{
+  position:relative;
+  left:20%;
+}
+.user_orders{
+  margin-left:30px;
+  width: 120px;
 }

@@ -5,19 +5,22 @@
       .controller('AddController', AddController)
 
 
-      AddController.$inject = ['$scope','$state','$stateParams','alert','$http','authToken','FileUploader','$uibModalInstance'];
+      AddController.$inject = ['$scope','$state','$stateParams','alert','$http','authToken','FileUploader','$uibModalInstance',];
 
       function AddController($scope, $state, $stateParams, alert, $http, authToken, FileUploader, $uibModalInstance){
         var vm = this;
         $scope.uploadedFile = [];
 
         vm.addProd = function(){
-          vm.product.imageUrl = $scope.uploadedFile.length ? $scope.uploadedFile[0].file.name : 'default-user.png';
-          alert('success', 'Added product!');
+          vm.product.imageUrl = $scope.uploadedFile.length ? $scope.uploadedFile[0].file.name
+          : 'default-user.png';
           $http.post('/product/create', vm.product ).success(function(response){
             console.log("Added product:", vm.product);
+            alert('success', 'Added product!');
+            console.log('response: ',response);
+            vm.product = response;
+            $uibModalInstance.close(vm.product);
           })
-          $uibModalInstance.close(true);
         }
 
         // UPLOAD IMG
@@ -30,7 +33,7 @@
            console.log('FileItem is', fileItem);
            $scope.uploadedFile.push(fileItem);
        };
-       console.info('uploader', uploader);
+      //  console.info('uploader', uploader);
 
     }//AddController
 

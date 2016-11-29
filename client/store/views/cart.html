@@ -31,7 +31,7 @@
 
 
              <div class="col-sm-6">
-               <div class="alert alert-info empty_cart" data-ng-show="vm.empty()"role="alert">No products in cart yet!</div>
+               <div class="alert alert-info empty_cart" data-ng-show="vm.empty()" role="alert">No products in cart yet!</div>
 
                <div class="col-sm-12 cart-item" ng-repeat="item in vm.cart.items">
                    <div class="col-sm-4">
@@ -55,7 +55,8 @@
                    <button class="btn btn-default cart-btn-bts" data-ng-click="vm.backToStore()">Back to store </button><br>
                    <h2><strong>Items : {{ vm.itemCount().count }} items</strong></h2>
                    <h2><strong>Total cost : {{ vm.totalCost().total }} $</strong> </h2><br>
-                   <button class="btn btn-warning cart-btn" data-ng-click="vm.goToOrders()">My Orders</button>
+                   <button class="btn btn-warning cart-btn" data-ng-hide="vm.checkLogged()" data-ng-click="vm.goToOrders()">My Orders</button>
+                   <button class="btn btn-warning cart-btn" data-ng-show="vm.checkLogged()" data-ng-click="vm.allOrders()">All orders</button>
                    <button class="btn btn-danger cart-btn" >Clear cart </button><br>
                    <button class="btn btn-primary cart-btn" data-ng-click="vm.checkout()" >Checkout</button><br>
                  </div>

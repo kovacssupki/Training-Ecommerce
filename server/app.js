@@ -95,8 +95,10 @@ app.put('/activate/:activationCode', require('./modules/confirm.js'));
 
 // ORDERS
 app.get('/order/:userid/create', require('./modules/createOrder.js'))
-app.get('/orders/:userid/list', require('./modules/getOrders.js') )
-
+app.get('/orders/:userid/list', require('./modules/getOrders.js'))
+app.get('/orders/:userid', require('./modules/myOrders.js'))
+app.put('/order/:orderid/confirm', require('./modules/confirmOrder.js'))
+app.put('/order/:orderid/reject', require('./modules/rejectOrder.js'))
 
 
 // Add Product - ADMIN
@@ -105,6 +107,8 @@ app.post('/product/create', require('./modules/addProduct.js'))
 app.post('/uploads', require('./modules/upload.js'))
 // Delete product - ADMIN
 app.delete('/product/:id/delete', require('./modules/deleteProduct.js'))
+// Edit product - ADMIN
+app.put('/product/:id/edit', require('./modules/editProduct.js'))
 
 
 

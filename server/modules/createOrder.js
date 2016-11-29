@@ -10,6 +10,8 @@ var exports = module.exports = function order(req, res){
   var token = req.headers.authorization.split(" ")[1];
   var payload = jwt.decode(token, "shhh..");
   var userid = payload.sub;
+  var username = payload.name;
+  // console.log('username: ',username)
 
   var userInitialCart = [];
 
@@ -18,7 +20,7 @@ User.findById({ _id: userid }, function(err, user){
   if(!user){
     return;
   }
-  console.log('user found', user)
+  // console.log('user found', user)
 
   userInitialCart = user.cart;
 
@@ -29,6 +31,8 @@ User.findById({ _id: userid }, function(err, user){
   });
 
   var order = new Order({
+    userId: userid,
+    username: username,
     cart: userInitialCart
   })
 

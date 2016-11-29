@@ -130,6 +130,7 @@
           return true;
         }
       }
+      
       vm.add = function(){
         var modalInstance = $uibModal.open({
           animation: true,
@@ -140,8 +141,8 @@
           controllerAs: 'vm',
           size: 'lg',
         });
-        modalInstance.result.then(function(){
-          vm.products = products;
+        modalInstance.result.then(function(data){
+           vm.products.push(data);
         })
       }//vm.addProd
 
@@ -153,19 +154,39 @@
         }).then(successCallback,errorCallback)
 
         function successCallback(){
-          // var deletedItem = students.filter(function(student){
-          //     return student._id === id;
-          //   })[0];
-          //   console.log("Deleted Student is: ", deletedStud);
-            vm.products.splice(students.indexOf(product),1);
+          vm.products = vm.products.filter(function(item){
+            if (product._id !== item._id) {
+              return item;
+            }
+          })
 
-           alert('success', 'Deleted product');
+          console.log("Deleted product is: ", product);
+          alert('success', 'Deleted product');
         }
         function errorCallback(){
           console.log('Error deleting product');
         }
       }
 
+      vm.edit = function(product){
+        // var selectedProduct = product;
+        // console.log('selectedProduct:', product);
+        var modalInstance = $uibModal.open({
+          animation: true,
+          ariaLabelledBy: 'modal-title',
+          ariaDescribedBy: 'modal-body',
+          templateUrl: 'client/store/views/editModal.html',
+          controller: 'EditController',
+          controllerAs: 'vm',
+          size: 'lg',
+          resolve:{
+            product: function(){
+              return product;
+            }
+          }
+        });
+
+      }//vm.addProd
 
     }//StoreController
 

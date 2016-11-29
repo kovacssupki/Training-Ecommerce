@@ -44,7 +44,7 @@
                </div>
                <div class="col-sm-8">
                  <div class="pull-left ">
-                  <a class="btn btn-primary" data-ng-show="vm.checkLogged()" data-ng-click="vm.add()" role="button" ng-click="">Add product</a>
+                  <a class="btn btn-primary" data-ng-show="vm.checkLogged()" data-ng-click="vm.add()" role="button">Add product</a>
                  </div>
                  <div class="pull-right go_cart_div">
                    <a class="go_cart_btn" data-ng-if="vm.token" data-ng-click="vm.goToCart()"><i class="fa fa-shopping-cart fa-2x shop-icon"></i><span>Cart( {{ vm.itemCount().count || 0}} items - {{ vm.totalCost().total || 0}} $)</span></a>
@@ -77,19 +77,23 @@
                           <a class="subtract" data-ng-click="vm.subQ(product)">
                             <i class="fa fa-minus"></i>
                           </a>
-                          <input type="number" min="0" max="{{ product.instock}}"ng-model="product.quantity" ng-init="product.quantity=1">
+
+                          <input type="number" min="0" max="{{ product.instock}}"ng-model="product.quantity"
+                          ng-init="product.quantity=1">
+
                           <p class="add" data-ng-click="vm.addQ(product)">
                             <i class="fa fa-plus"></i>
                           </p>
                         </div>
                         <p>Total price :  {{ product.price * product.quantity || 0 }} $ </p>
 
-                      <p><span><p>{{product.instock - product.quantity}} available in stock!</p></span></p>
+                      <span>{{product.instock - product.quantity}} available in stock!</span>
+                      <span><a class="btn btn-warning edit_prod" data-ng-click="vm.edit(product)"data-ng-show="vm.checkLogged()"><i class="fa   fa-pencil"  aria-hidden="true"></i></a></span>
                     </form>
 
                     <span><a href="#"class="btn btn-primary" role="button" ng-click="vm.addToCart(product);">Add to cart</a></span>
                     <span><a class="btn btn-primary" role="button" ng-click="vm.details(product)">View details</a></span>
-                    <a  class="btn btn-danger delete_product" data-ng-click="vm.delete(product)" data-ng-show="vm.checkLogged()"><i class="fa fa-trash" aria-hidden="true"></i>  Delete</a>
+                    <a href="#" class="btn btn-danger delete_product" data-ng-click="vm.delete(product)" data-ng-show="vm.checkLogged()"><i class="fa fa-trash" aria-hidden="true"></i>  Delete</a>
                     <!-- <div class="alert alert-{{ alert.type }} animated main-alert" data-ng-class="{'flipInY': alert.show, 'flipOutY':!alert.show,'alert-hidden': !alert.hasBeenShown 	}"><strong>{{alert.title}}</strong>{{alert.message}}</div> -->
                   </div>
                 </div>

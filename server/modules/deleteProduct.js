@@ -13,6 +13,7 @@ Product.findOne({ _id: productId  }, function(err, product){
   }
 
   product.remove(product);
+  res.send({"success": "deleted product"})
 
 })
 

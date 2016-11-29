@@ -94,17 +94,26 @@
               templateUrl:'client/store/views/orders.html',
               controller: 'OrdersController',
               controllerAs:'vm',
+              // params:{
+              //   userId: null
+              // },
               resolve:{
                 cart:['$stateParams','$http', function($stateParams, $http){
                   return $http.get('/cart/'+ $stateParams.userid ).then(function(response){
-                    console.log(response.data);
+                    // console.log(response.data);
                     return response.data;
                   })
                 }],
                 orders:['$stateParams','$http', function($stateParams, $http){
-                  return $http.get('/orders/'+ $stateParams.userid +'/list' ).then(function(response){
-                    // console.log(response.data);
-                    return response.data;
+                  return $http.get('/orders/'+ $stateParams.userid).then(function(response){
+                    console.log("user orders: ",response.data);
+                    return response.data.orders;
+                  })
+                }],
+                allOrders:['$stateParams','$http', function($stateParams, $http){
+                  return $http.get('/orders/'+ $stateParams.userid + '/list').then(function(response){
+                    console.log("all orders", response.data);
+                    return response.data.orders;
                   })
                 }]
               }

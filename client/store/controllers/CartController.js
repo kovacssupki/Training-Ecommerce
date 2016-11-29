@@ -19,6 +19,12 @@
         vm.cart.items = vm.cart.user.cart;
         console.log('vm.cart.items', vm.cart.items);
 
+        vm.checkLogged = function(){
+          if(vm.loggedUser === 'admin'){
+            return true;
+          }
+        }
+
         vm.empty = function(){
           if (!vm.cart.items.length){
             return true;
@@ -47,7 +53,7 @@
           $http.delete('/cart/'+ vm.userid +'/removeitem/'+ product._id).success(function(response){
             console.log('Deleted: ', response);
           }).then(successCallback,errorCallback)
-          
+
           function successCallback(){
              alert('success', 'Item removed from cart');
              $http.get('/cart/'+ vm.userid).success(function(response){
@@ -58,6 +64,7 @@
           function errorCallback(){
             console.log('Error removing item from cart');
           }
+
         }//removeItem
 
         vm.itemCount = function(){
@@ -79,9 +86,35 @@
         }//totalCost
 
         vm.goToOrders = function(){
-          $state.go('orders', { userid: vm.userid} );
+          $http.get('/orders/'+ vm.userId).success(function(response){
+            console.log('Orders for this user are: ', response);
+          }).then(onSuccessCallback, onErrorCallback)
+
+          function onSuccessCallback(err, doc){
+            console.log('doc', doc);
+            console.log('success, got orders');
+          }
+          function onErrorCallback(error){
+            console.log('Error finding orders');
+          }
+           $state.go('orders', { userid: vm.userid} );
         }
 
+        vm.allOrders = function(){
+          $http.get('/orders/'+ vm.userId +'/list').success(function(response){
+
+            console.log('All orders are: ', response);
+          }).then(onSuccessCallback, onErrorCallback)
+
+          function onSuccessCallback(err, doc){
+
+            console.log('Success retrieving orders');
+          }
+          function onErrorCallback(error){
+            console.log('Error retrieving orders');
+          }
+          $state.go('orders',{ userid: vm.userId});
+        }
 
         vm.checkout = function(){
           console.log('checkout clicked');

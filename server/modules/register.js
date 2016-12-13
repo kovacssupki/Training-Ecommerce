@@ -21,7 +21,7 @@ var exports = module.exports = function register(req, res){
 
 
 //create a payload with our user,and send it instead of the normal json newUser
-
+console.log('newUser pass', newUser);
   newUser.save(onSuccessCallback, onErrorCallback);
   function onSuccessCallback(err,doc){
     if(doc){

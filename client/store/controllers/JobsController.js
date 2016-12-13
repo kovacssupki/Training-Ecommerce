@@ -10,7 +10,13 @@
       function JobsController($scope, $http, alert, API_URL, authToken){
         var vm = this;
         vm.logoPath = '/client/assets/img/logo.png';
-        vm.isAuthenticated = authToken.isAuthenticated;
+        vm.token = authToken.getToken();
+
+        if(vm.token){
+          vm.isAuthenticated = authToken.isAuthenticated;
+        }
+      
+
 
         $http.get(API_URL + 'jobs').success(function(jobs){
           vm.jobs = jobs;

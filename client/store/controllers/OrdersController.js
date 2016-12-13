@@ -18,6 +18,18 @@
         console.log('All orders:', allOrders)
         console.log('Orders:', orders)
 
+        $http.get('/orders/'+ vm.userId).success(function(response){
+          console.log('Orders for this user are: ', response);
+        }).then(onSuccessCallback, onErrorCallback)
+
+        function onSuccessCallback(err, doc){
+          console.log('success, got orders');
+          console.log('doc', doc);
+        }
+        function onErrorCallback(error){
+          console.log('Error finding orders');
+        }
+
         vm.loggedAdmin= function(){
           if(vm.userid === '58358c03abe49411b46c792a'){
             return true;
@@ -51,12 +63,7 @@
             return true;
           }
         }
-        // vm.completed = function(order){
-        //   var orderId = order._id;
-        //   $http.put('/order/'+ orderId + '/reject',  { orderId: orderId}).success(function(response){
-        //     console.log('order modified succesfully');
-        //   })
-        // }
+
 
         vm.backToCart = function(){
           $state.go('cart', { userid: vm.userid} );

@@ -15,7 +15,7 @@
         vm.logoPath = '/client/assets/img/logo.png';
 
         vm.register = function(){
-
+          // console.log('vm.user', vm.user);
           $http.post('/user/register', vm.user, {headers:{'Content-Type': 'application/json' }})
           .success(function(response){
             authToken.setToken(response.token);

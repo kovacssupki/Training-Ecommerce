@@ -69,7 +69,7 @@
 
 
 
-        vm.details = function(product){
+      vm.details = function(product){
          vm.product = product;
          var modalInstance = $uibModal.open({
            animation: true,
@@ -87,7 +87,7 @@
          });
        }
 
-       vm.addToCart = function(product){
+      vm.addToCart = function(product){
          var product = product;
 
          $http.post('/cart/'+ vm.userid + '/additem/'+ product._id, { productId: product._id, userId: vm.userid, quantity: product.quantity, itemName: product.name}).success(function(response){
@@ -107,11 +107,9 @@
          }
        }//adtoCart
 
-
-        vm.goToCart = function(){
-          $state.go('cart', { userid: vm.userid} );
-        }
-
+      vm.goToCart = function(){
+        $state.go('cart', { userid: vm.userid} );
+      }
 
       vm.addQ = function(product){
         product.quantity +=1;
@@ -130,7 +128,7 @@
           return true;
         }
       }
-      
+
       vm.add = function(){
         var modalInstance = $uibModal.open({
           animation: true,

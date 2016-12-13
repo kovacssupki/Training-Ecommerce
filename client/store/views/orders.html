@@ -53,12 +53,12 @@
       <div uib-accordion-group class="panel-default"  data-ng-repeat="order in vm.orders" is-open="status.isCustomHeaderOpen" template-url="group-template.html">
         <uib-accordion-heading>
           <span class="order_title">Order</span><span class="order_id"> # {{ vm.orders.indexOf(order) +1 }}</span> <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}" style='margin-left: 10px;'></i>
-          <span data-ng-if="vm.loggedAdmin()" class="btn btn-warning user_orders">User: {{ order.username}}</span>
+          <span data-ng-if="vm.loggedAdmin()" class="btn btn-info user_orders">User: {{ order.username}}</span>
           <span class="logged_admin" data-ng-if="vm.loggedAdmin()">
             <button class="btn btn-success" data-ng-click="vm.confirm(order)">Confirm</button>
             <button class="btn btn-danger" data-ng-click="vm.reject(order)">Reject</button>
-            <span class="btn btn-success" data-ng-disabled="!vm.confirmed(order)">Confirmed</span>
-            <completedBtn></completedBtn>
+            <span class="btn btn-primary" data-ng-disabled="!vm.confirmed(order)">Confirmed</span>
+            <completed-btn order="order"></completed-btn>
           </span>
           <span class="pull-right"><span class="order_title">Created at:</span> {{order.createdAt | date}}</span>
         </uib-accordion-heading>

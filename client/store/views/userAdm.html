@@ -1,0 +1,41 @@
+<div class="container header_wrapper">
+  <div class="header">
+    <ul class="nav nav-pills pull-right">
+      <li ui-sref-active="active"><a ui-sref="main">Home</a></li>
+      <li ui-sref-active="active"><a ui-sref="jobs">Jobs</a></li>
+      <li data-ng-show="vm.isAuthenticated" ui-sref-active="active"><a ui-sref="user">User administration</a></li>
+      <li data-ng-hide="vm.isAuthenticated" ui-sref-active="active"><a ui-sref="login">Login</a></li>
+      <li data-ng-show="vm.isAuthenticated" ui-sref-active="active"><a ui-sref="logout">Logout</a></li>
+    </ul>
+    <a class="navbar-brand" href="/"><img data-ng-src="{{ vm.logoPath}}" alt="Logo" class="logo"></a>
+  </div>
+</div>
+
+<div class="intros">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <h4>These are all the registered users</h4>
+        <h5>Here you can disable or enable a user and reset their password</h5>
+      </div>
+      <div class="col-sm-6">
+        <button class="btn btn-warning cart-btn pull-right" data-ng-click="vm.backHome()">Back home</button>
+      </div>
+    </div>
+  </div>
+
+</div><!--intros-->
+
+<div class="container">
+  <div class="user_administration" data-ng-if="vm.isAuthenticated">
+    <ul class="list-group">
+      <li class="list-group-item user_list" data-ng-repeat="user in vm.users">
+        <span class="btn btn-info user_label">User: {{ user.name}}</span>
+        <button class="btn btn-warning pull-right" data-ng-click="vm.resetPass(user)">Reset password</button>
+        <button class="btn btn-danger pull-right" data-ng-click="vm.disableUser(user)" data-ng-show="user.isActive">Disable User</button>
+        <button class="btn btn-success pull-right" data-ng-click="vm.enableUser(user)" data-ng-show="!user.isActive">Enable User</button>
+      </li>
+    </ul>
+  </div>
+  <div data-ng-include="'client/store/views/alert.html'">
+</div>

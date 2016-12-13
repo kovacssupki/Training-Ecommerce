@@ -5,9 +5,9 @@
     <ul class="nav nav-pills pull-right">
       <li ui-sref-active="active"><a ui-sref="main">Home</a></li>
       <li ui-sref-active="active"><a ui-sref="jobs">Jobs</a></li>
+      <li data-ng-show="vm.checkLogged()" ui-sref-active="active"><a ui-sref="user">User administration</a></li>
       <li data-ng-hide="vm.isAuthenticated()" ui-sref-active="active"><a ui-sref="login">Login</a></li>
       <li data-ng-show="vm.isAuthenticated()"  ui-sref-active="active"><a ui-sref="logout">Logout</a></li>
-      <!-- <li data-ng-show="vm.loggedUser">Logged in as: {{ vm.loggedUser}}</li> -->
     </ul>
     <a class="navbar-brand" href="/"><img data-ng-src="{{ vm.logoPath}}" alt="Logo" class="logo"></a>
   </div>

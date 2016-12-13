@@ -55,7 +55,6 @@ var jobs = [
 //Jobs
  app.get('/jobs', function(req, res){
 
-
    if(!req.headers.authorization){
      return res.status(401).send({
        message : "You are not authorized"
@@ -99,7 +98,7 @@ app.get('/orders/:userid/list', require('./modules/getOrders.js'))
 app.get('/orders/:userid', require('./modules/myOrders.js'))
 app.put('/order/:orderid/confirm', require('./modules/confirmOrder.js'))
 app.put('/order/:orderid/reject', require('./modules/rejectOrder.js'))
-
+app.put('/order/:orderid/complete', require('./modules/completeOrder.js'))
 
 // Add Product - ADMIN
 app.post('/product/create', require('./modules/addProduct.js'))
@@ -110,7 +109,12 @@ app.delete('/product/:id/delete', require('./modules/deleteProduct.js'))
 // Edit product - ADMIN
 app.put('/product/:id/edit', require('./modules/editProduct.js'))
 
-
+//Enable User - ADMIN
+app.post('/user/enable/:userid', require('./modules/enableUser.js'))
+//Disable User - ADMIN
+app.post('/user/disable/:userid', require('./modules/disableUser.js'))
+//Reset password - ADMIN
+app.post('/user/resetPassword', require('./modules/resetPassword.js'))
 
 
 app.get('*',function (req, res) {
